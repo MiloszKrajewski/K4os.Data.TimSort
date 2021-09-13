@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2024
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "K4os.Data.TimSort", "K4os.Data.TimSort\K4os.Data.TimSort.csproj", "{78E30641-991E-4010-92FB-2D9A7DBA4FC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K4os.Data.TimSort.Test", "K4os.Data.TimSort.Test\K4os.Data.TimSort.Test.csproj", "{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{835ECDA0-7229-4D96-8B74-8D9F119E6683}"
+	ProjectSection(SolutionItems) = preProject
+		..\build.fsx = ..\build.fsx
+		..\build.tools.fsx = ..\build.tools.fsx
+		..\CHANGES.md = ..\CHANGES.md
+		..\paket.dependencies = ..\paket.dependencies
+		..\README.md = ..\README.md
+		..\.secrets.cfg = ..\.secrets.cfg
+		..\Common.targets = ..\Common.targets
+		..\LICENSE = ..\LICENSE
+		..\settings.cfg = ..\settings.cfg
+		..\.gitignore = ..\.gitignore
+		..\Signing.targets = ..\Signing.targets
+		..\paket.lock = ..\paket.lock
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K4os.Data.TimSort.App", "K4os.Data.TimSort.App\K4os.Data.TimSort.App.csproj", "{B7C9D624-060B-460D-9191-D37A4DF25F0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceImplementation", "ReferenceImplementation\ReferenceImplementation.csproj", "{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{D044E950-9493-4533-AF93-A823CF54FBFE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D044E950-9493-4533-AF93-A823CF54FBFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D044E950-9493-4533-AF93-A823CF54FBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D044E950-9493-4533-AF93-A823CF54FBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D044E950-9493-4533-AF93-A823CF54FBFE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5E7EEB6E-E06D-4B35-B7A9-43C1BEBA37CD}
+	EndGlobalSection
+EndGlobal

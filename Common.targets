@@ -1,0 +1,28 @@
+<Project>
+  <PropertyGroup>
+    <Version>0.0.1</Version>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <FileVersion>0.0.1</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Product>K4os.Data.TimSort</Product>
+    <Authors>...</Authors>
+    <Copyright>...</Copyright>
+    <Description>...</Description>
+    <RepositoryUrl>https://.../K4os.Data.TimSort</RepositoryUrl>
+    <!--
+    <PackageLicenseUrl>https://.../LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://.../K4os.Data.TimSort</PackageProjectUrl>
+    <PackageIconUrl>https://.../K4os.Data.TimSort/icon.png</PackageIconUrl>
+	-->
+  </PropertyGroup>
+  <PropertyGroup>
+    <!--
+    <PackageTags>...</PackageTags>
+    -->
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="*.?sproj.DotSettings" />
+  </ItemGroup>
+</Project>

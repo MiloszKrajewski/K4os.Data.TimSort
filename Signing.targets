@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' and Exists('../../K4os.Data.TimSort.snk')">
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../../K4os.Data.TimSort.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+</Project>

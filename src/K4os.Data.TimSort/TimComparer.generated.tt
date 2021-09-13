@@ -1,0 +1,50 @@
+<#@ template language="C#" #>
+<#@ output extension=".cs" #>
+<#
+	var types = new[] {
+		"Byte", "SByte",
+		"Int16", "UInt16",
+		"Int32", "UInt32",
+		"Int64", "UInt64",
+		"Single", "Double", "Decimal",
+		"DateTime", "DateTimeOffset",
+	};
+#>
+// ReSharper disable BuiltInTypeReferenceStyle
+
+using System;
+using System.Runtime.CompilerServices;
+
+namespace K4os.Data.TimSort
+{
+	public partial class TimComparer
+	{
+<#
+	foreach (var type in types)
+	{
+#>
+        ///<summary>Native comparer for <see cref="<#= type #>"/>.</summary>
+        public static readonly <#= type #>Comparer <#= type #> = new();
+<#
+	}
+#>
+	}
+
+<#
+	foreach (var type in types)
+	{
+#>
+    ///<summary>Native comparer for <see cref="<#= type #>"/>.</summary>
+	public struct <#= type #>Comparer: ITimComparer<<#= type #>>
+	{
+		/// <inheritdoc />
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public bool Lt(in <#= type #> a, in <#= type #> b) => a < b;
+	}
+<#
+		NewLine();
+	}
+#>
+}
+
+<#+ public void NewLine(bool condition = true) { if (condition) WriteLine(""); } #>
