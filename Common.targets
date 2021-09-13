@@ -7,20 +7,18 @@
   <PropertyGroup>
     <PackageId>$(AssemblyName)</PackageId>
     <Product>K4os.Data.TimSort</Product>
-    <Authors>...</Authors>
-    <Copyright>...</Copyright>
-    <Description>...</Description>
-    <RepositoryUrl>https://.../K4os.Data.TimSort</RepositoryUrl>
+    <Authors>Milosz Krajewski</Authors>
+    <Copyright>Milosz Krajewski</Copyright>
+    <Description>TimSort for .NET</Description>
+    <RepositoryUrl>https://github.com/MiloszKrajewski/K4os.Data.TimSort</RepositoryUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/MiloszKrajewski/K4os.Data.TimSort/main/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/MiloszKrajewski/K4os.Data.TimSort</PackageProjectUrl>
     <!--
-    <PackageLicenseUrl>https://.../LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://.../K4os.Data.TimSort</PackageProjectUrl>
     <PackageIconUrl>https://.../K4os.Data.TimSort/icon.png</PackageIconUrl>
-	-->
+    -->
   </PropertyGroup>
   <PropertyGroup>
-    <!--
-    <PackageTags>...</PackageTags>
-    -->
+    <PackageTags>span array list sort timsort</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="*.?sproj.DotSettings" />

@@ -2,9 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
-    <AllowUnsafeCode>true</AllowUnsafeCode>
-    <LangVersion>default</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="TimComparer.generated.tt">

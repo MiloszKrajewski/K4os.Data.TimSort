@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{835ECD
 		..\paket.lock = ..\paket.lock
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "K4os.Data.TimSort.App", "K4os.Data.TimSort.App\K4os.Data.TimSort.App.csproj", "{B7C9D624-060B-460D-9191-D37A4DF25F0B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceImplementation", "ReferenceImplementation\ReferenceImplementation.csproj", "{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{D044E950-9493-4533-AF93-A823CF54FBFE}"
@@ -43,10 +41,6 @@ Global
 		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5A5E43-FE63-4F04-BE6A-EEBEDEC01789}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7C9D624-060B-460D-9191-D37A4DF25F0B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}.Release|Any CPU.ActiveCfg = Release|Any CPU

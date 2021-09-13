@@ -1,7 +1,0 @@
-System.Reactive
-System.Interactive
-
-Microsoft.Extensions.DependencyInjection
-Microsoft.Extensions.DependencyInjection.Abstractions
-Microsoft.Extensions.Logging
-Microsoft.Extensions.Logging.Abstractions
