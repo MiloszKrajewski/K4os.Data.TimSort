@@ -47,7 +47,6 @@ namespace K4os.Data.TimSort.Internals
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Span<T> TryAsSpan<T>(this ICollection<T> collection) =>
 			collection switch {
-				null => null,
 				T[] array => array.AsSpan(),
 				List<T> list => list.AsSpan(),
 				_ => null,

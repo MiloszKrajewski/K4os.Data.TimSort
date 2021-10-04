@@ -23,6 +23,13 @@ namespace K4os.Data.TimSort
 		void Copy(int source, int target, int length);
 
 		/// <summary>
+		/// Swaps elements at index <paramref name="source"/> and index <paramref name="target"/>.
+		/// </summary>
+		/// <param name="source">Source index.</param>
+		/// <param name="target">Target index.</param>
+		void Swap(int source, int target);
+
+		/// <summary>
 		/// Reverse order of items between index <paramref name="lo"/> (inclusive) and
 		/// <paramref name="hi"/> (exclusive). 
 		/// </summary>

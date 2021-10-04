@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace K4os.Data.TimSort.Internals
 {
@@ -28,6 +29,7 @@ namespace K4os.Data.TimSort.Internals
 		/// </summary>
 		/// <param name="list"><see cref="List{T}"/> to extract array from.</param>
 		/// <returns>Internal array.</returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static T[] GetArray(List<T> list) => Extractor(list);
 	}
 }

@@ -43,6 +43,16 @@ namespace K4os.Data.TimSort.Internals
 		}
 
 		/// <inheritdoc />
+		public void Swap(int source, int target)
+		{
+			var list = _list;
+			// ReSharper disable once SwapViaDeconstruction
+			var swap = list[target];
+			list[target] = list[source];
+			list[source] = swap;
+		}
+
+		/// <inheritdoc />
 		public void Reverse(int lo, int hi)
 		{
 			hi--;
@@ -62,6 +72,7 @@ namespace K4os.Data.TimSort.Internals
 		public void Export(int source, T[] buffer, int target, int length)
 		{
 			if (length <= 0) return;
+
 			var limit = source + length;
 			while (source < limit) buffer[target++] = this[source++];
 		}
@@ -70,6 +81,7 @@ namespace K4os.Data.TimSort.Internals
 		public void Import(int target, T[] buffer, int source, int length)
 		{
 			if (length <= 0) return;
+
 			var limit = source + length;
 			while (source < limit) this[target++] = buffer[source++];
 		}

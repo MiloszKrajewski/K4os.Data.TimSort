@@ -38,6 +38,16 @@ namespace K4os.Data.TimSort.Internals
 		public void Copy(int source, int target, int length) =>
 			Span(source, length).CopyTo(Span(target, length));
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public void Swap(int source, int target)
+		{
+			ref var sourcePtr = ref Unsafe.Add(ref Unsafe.AsRef<T>(_ptr), source);
+			var swap = sourcePtr;
+			ref var targetPtr = ref Unsafe.Add(ref Unsafe.AsRef<T>(_ptr), target);
+			sourcePtr = targetPtr;
+			targetPtr = swap;
+		}
+
 		/// <inheritdoc />
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public void Reverse(int lo, int hi) =>
