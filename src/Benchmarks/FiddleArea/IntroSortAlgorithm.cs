@@ -1,0 +1,214 @@
+using System;
+using System.Runtime.CompilerServices;
+using K4os.Data.TimSort.Internals;
+
+namespace Benchmarks.FiddleArea
+{
+	public class IntroSortAlgorithm<T, TIndexer, TReference, TLessThan>
+		where TIndexer: IIndexer<T, TReference>
+		where TReference: IReference<TReference>
+		where TLessThan: ILessThan<T>
+	{
+		private const int MinQuickSortWidth = 16;
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static void IntroSort(
+			TIndexer indexer, TLessThan comparer, 
+			TReference lo, TReference hi)
+		{
+			var length = hi.Dif(lo);
+			var depth = (BitTwiddlingHacks.Log2((uint)length) + 1) << 1;
+			IntroSort(indexer, lo, hi, comparer, depth);
+		}
+
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		private static void IntroSort(
+			TIndexer indexer, TReference lo, TReference hi, 
+			TLessThan comparer, int depth)
+		{
+			var length = hi.Dif(lo);
+
+			switch (length)
+			{
+				case 0:
+				case 1:
+					// nothing to sort
+					return;
+				case 2:
+					Sort2(indexer, lo, lo.Inc(), comparer);
+					return;
+				case 3:
+					Sort3(indexer, lo, lo.Inc(), lo.Add(2), comparer);
+					return;
+				case < MinQuickSortWidth:
+					InsertionSort(indexer, lo, hi, comparer);
+					return;
+			}
+
+			if (depth <= 0)
+			{
+				HeapSort(indexer, lo, hi, comparer);
+				return;
+			}
+
+			var mid = Partition(indexer, lo, hi, comparer);
+			IntroSort(indexer, lo, mid, comparer, depth - 1);
+			IntroSort(indexer, mid, hi, comparer, depth - 1);
+		}
+		
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		private static TReference Partition(
+			TIndexer indexer, TReference lo, TReference hi, 
+			TLessThan comparer)
+		{
+			var mid = lo.Add(hi.Dif(lo) >> 1);
+			Sort3(indexer, lo, mid, hi.Dec(), comparer);
+
+			hi = hi.Sub(2);
+			indexer.Swap(mid, hi);
+			
+			return PartitionLoop(lo, hi, indexer, comparer);
+		}
+
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		// ReSharper disable once UnusedMember.Local
+		private static void __PartitionLoopPadding__()
+		{
+			// this method exists to align method after it to some power of 2 boundary.
+			// It pure speculation might it seems to be working.
+			// Needs to revised for .NET 6 (might not be needed)
+			Padding(0);
+			Padding(1);
+		}
+
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		private static TReference PartitionLoop(
+			TReference lo, TReference hi, TIndexer indexer, TLessThan comparer)
+		{
+			var p = indexer[hi];
+
+			for (var i = lo; i.Lt(hi); i = i.Inc())
+			{
+				if (!comparer.Lt(indexer[i], p)) continue;
+
+				indexer.Swap(i, lo);
+				lo = lo.Inc();
+			}
+
+			indexer.Swap(lo, hi);
+
+			return lo;
+		}
+		
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		// ReSharper disable once UnusedMember.Local
+		private static void __InsertionSortPadding__()
+		{
+			// this method exists to align method after it to some power of 2 boundary.
+			// It pure speculation might it seems to be working.
+			// Needs to revised for .NET 6 (might not be needed)
+			Padding(0); 
+			Padding(1);
+			Padding(2);
+			Padding(3);
+			Padding(4);
+			Padding(5);
+			Padding(6);
+			Padding(7);
+		}
+
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		public static void InsertionSort(
+			TIndexer indexer, TReference lo, TReference hi, 
+			TLessThan comparer)
+		{
+			for (var i = lo.Inc(); i.Lt(hi); i = i.Inc())
+			{
+				var t = indexer[i];
+
+				var j = i.Dec();
+				while (j.GtEq(lo) && comparer.Lt(t, indexer[j]))
+				{
+					indexer[j.Inc()] = indexer[j];
+					j = j.Dec();
+				}
+
+				indexer[j.Inc()] = t;
+			}
+		}
+		
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		public static void HeapSort(
+			TIndexer indexer, TReference lo, TReference hi, 
+			TLessThan comparer)
+		{
+			var length = hi.Dif(lo);
+
+			for (var i = length >> 1; i > 0; i--)
+			{
+				DownHeap(indexer, lo, i, length, comparer);
+			}
+
+			for (var i = length; i > 1; i--)
+			{
+				indexer.Swap(lo, lo.Add(i - 1));
+				DownHeap(indexer, lo, 1, i - 1, comparer);
+			}
+		}
+
+		private static void DownHeap(
+			TIndexer indexer, TReference offset, 
+			int i, int n, 
+			TLessThan comparer)
+		{
+			var d = indexer[offset.Add(i - 1)];
+			while (i <= n >> 1)
+			{
+				var c = i << 1;
+				if (c < n && comparer.Lt(indexer[offset.Add(c - 1)], indexer[offset.Add(c)]))
+					c++;
+
+				if (!comparer.Lt(d, indexer[offset.Add(c - 1)]))
+					break;
+
+				indexer[offset.Add(i - 1)] = indexer[offset.Add(c - 1)];
+				i = c;
+			}
+
+			indexer[offset.Add(i - 1)] = d;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static void Sort2(
+			TIndexer indexer, TReference a, TReference b, 
+			TLessThan comparer)
+		{
+			if (comparer.Gt(indexer[a], indexer[b])) indexer.Swap(a, b);
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static void Sort3(
+			TIndexer indexer, TReference a, TReference b, TReference c, 
+			TLessThan comparer)
+		{
+			Sort2(indexer, a, b, comparer);
+			Sort2(indexer, a, c, comparer);
+			Sort2(indexer, b, c, comparer);
+		}
+		
+		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
+		// ReSharper disable once UnusedMember.Local
+		// ReSharper disable once UnusedParameter.Local
+		private static void Padding(byte _) { /* do nothing */ }
+	}
+}

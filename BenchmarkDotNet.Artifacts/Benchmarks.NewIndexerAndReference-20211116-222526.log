@@ -1,0 +1,289 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 3 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+Unable to find .sln or .csproj file. Will use current directory D:\Projects\K4os.Data.TimSort to search for project file. If you don't use .sln file on purpose it should not be a problem.
+// start dotnet restore  /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff
+// command took 1.02s and exited with 0
+// start dotnet build -c Release  --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff
+// command took 13.18s and exited with 1
+// start dotnet build -c Release  --no-restore --no-dependencies /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff
+// command took 1.86s and exited with 0
+// ***** Done, took 00:00:16 (16.25 sec)   *****
+// Found 3 benchmarks:
+//   NewIndexerAndReference.Default: DefaultJob [Size=100000, Order=Random]
+//   NewIndexerAndReference.UsingPointers: DefaultJob [Size=100000, Order=Random]
+//   NewIndexerAndReference.UsingReference: DefaultJob [Size=100000, Order=Random]
+
+// **************************
+// Benchmark: NewIndexerAndReference.Default: DefaultJob [Size=100000, Order=Random]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "88d3f6ea-2976-4c0b-ad91-33bfd27f94ff.dll" --benchmarkName "Benchmarks.NewIndexerAndReference.Default(Size: 100000, Order: Random)" --job "Default" --benchmarkId 0 in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff\bin\Release\netcoreapp3.1
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 161200.00 ns, 161.2000 us/op
+WorkloadJitting  1: 1 op, 4796816200.00 ns, 4.7968 s/op
+
+WorkloadWarmup   1: 1 op, 4794368500.00 ns, 4.7944 s/op
+WorkloadWarmup   2: 1 op, 4794721200.00 ns, 4.7947 s/op
+WorkloadWarmup   3: 1 op, 4812802200.00 ns, 4.8128 s/op
+WorkloadWarmup   4: 1 op, 4799704400.00 ns, 4.7997 s/op
+WorkloadWarmup   5: 1 op, 4837218700.00 ns, 4.8372 s/op
+WorkloadWarmup   6: 1 op, 4814823600.00 ns, 4.8148 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 4811706000.00 ns, 4.8117 s/op
+WorkloadActual   2: 1 op, 4799626500.00 ns, 4.7996 s/op
+WorkloadActual   3: 1 op, 4800526700.00 ns, 4.8005 s/op
+WorkloadActual   4: 1 op, 4812461100.00 ns, 4.8125 s/op
+WorkloadActual   5: 1 op, 4796323200.00 ns, 4.7963 s/op
+WorkloadActual   6: 1 op, 4802899600.00 ns, 4.8029 s/op
+WorkloadActual   7: 1 op, 4798941000.00 ns, 4.7989 s/op
+WorkloadActual   8: 1 op, 4807942400.00 ns, 4.8079 s/op
+WorkloadActual   9: 1 op, 4796889500.00 ns, 4.7969 s/op
+WorkloadActual  10: 1 op, 4796086700.00 ns, 4.7961 s/op
+WorkloadActual  11: 1 op, 4795266100.00 ns, 4.7953 s/op
+WorkloadActual  12: 1 op, 4796516000.00 ns, 4.7965 s/op
+WorkloadActual  13: 1 op, 4798850900.00 ns, 4.7989 s/op
+WorkloadActual  14: 1 op, 4807041800.00 ns, 4.8070 s/op
+WorkloadActual  15: 1 op, 4805893400.00 ns, 4.8059 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 4811706000.00 ns, 4.8117 s/op
+WorkloadResult   2: 1 op, 4799626500.00 ns, 4.7996 s/op
+WorkloadResult   3: 1 op, 4800526700.00 ns, 4.8005 s/op
+WorkloadResult   4: 1 op, 4812461100.00 ns, 4.8125 s/op
+WorkloadResult   5: 1 op, 4796323200.00 ns, 4.7963 s/op
+WorkloadResult   6: 1 op, 4802899600.00 ns, 4.8029 s/op
+WorkloadResult   7: 1 op, 4798941000.00 ns, 4.7989 s/op
+WorkloadResult   8: 1 op, 4807942400.00 ns, 4.8079 s/op
+WorkloadResult   9: 1 op, 4796889500.00 ns, 4.7969 s/op
+WorkloadResult  10: 1 op, 4796086700.00 ns, 4.7961 s/op
+WorkloadResult  11: 1 op, 4795266100.00 ns, 4.7953 s/op
+WorkloadResult  12: 1 op, 4796516000.00 ns, 4.7965 s/op
+WorkloadResult  13: 1 op, 4798850900.00 ns, 4.7989 s/op
+WorkloadResult  14: 1 op, 4807041800.00 ns, 4.8070 s/op
+WorkloadResult  15: 1 op, 4805893400.00 ns, 4.8059 s/op
+
+// AfterAll
+// Benchmark Process 24300 has exited with code 0.
+
+Mean = 4.802 s, StdErr = 0.002 s (0.03%), N = 15, StdDev = 0.006 s
+Min = 4.795 s, Q1 = 4.797 s, Median = 4.800 s, Q3 = 4.806 s, Max = 4.812 s
+IQR = 0.010 s, LowerFence = 4.782 s, UpperFence = 4.821 s
+ConfidenceInterval = [4.796 s; 4.808 s] (CI 99.9%), Margin = 0.006 s (0.13% of Mean)
+Skewness = 0.56, Kurtosis = 1.75, MValue = 2
+
+// **************************
+// Benchmark: NewIndexerAndReference.UsingPointers: DefaultJob [Size=100000, Order=Random]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "88d3f6ea-2976-4c0b-ad91-33bfd27f94ff.dll" --benchmarkName "Benchmarks.NewIndexerAndReference.UsingPointers(Size: 100000, Order: Random)" --job "Default" --benchmarkId 1 in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff\bin\Release\netcoreapp3.1
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 159300.00 ns, 159.3000 us/op
+WorkloadJitting  1: 1 op, 4812779200.00 ns, 4.8128 s/op
+
+WorkloadWarmup   1: 1 op, 4798895700.00 ns, 4.7989 s/op
+WorkloadWarmup   2: 1 op, 4796638600.00 ns, 4.7966 s/op
+WorkloadWarmup   3: 1 op, 4796241900.00 ns, 4.7962 s/op
+WorkloadWarmup   4: 1 op, 4796274700.00 ns, 4.7963 s/op
+WorkloadWarmup   5: 1 op, 4794919600.00 ns, 4.7949 s/op
+WorkloadWarmup   6: 1 op, 4795526700.00 ns, 4.7955 s/op
+WorkloadWarmup   7: 1 op, 4794927900.00 ns, 4.7949 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 4797515000.00 ns, 4.7975 s/op
+WorkloadActual   2: 1 op, 4799507800.00 ns, 4.7995 s/op
+WorkloadActual   3: 1 op, 4795135700.00 ns, 4.7951 s/op
+WorkloadActual   4: 1 op, 4794517600.00 ns, 4.7945 s/op
+WorkloadActual   5: 1 op, 4794888200.00 ns, 4.7949 s/op
+WorkloadActual   6: 1 op, 4810890400.00 ns, 4.8109 s/op
+WorkloadActual   7: 1 op, 4801889700.00 ns, 4.8019 s/op
+WorkloadActual   8: 1 op, 4796974200.00 ns, 4.7970 s/op
+WorkloadActual   9: 1 op, 4801543800.00 ns, 4.8015 s/op
+WorkloadActual  10: 1 op, 4797011300.00 ns, 4.7970 s/op
+WorkloadActual  11: 1 op, 4797780600.00 ns, 4.7978 s/op
+WorkloadActual  12: 1 op, 4797021300.00 ns, 4.7970 s/op
+WorkloadActual  13: 1 op, 4797162800.00 ns, 4.7972 s/op
+WorkloadActual  14: 1 op, 4797500300.00 ns, 4.7975 s/op
+WorkloadActual  15: 1 op, 4802913900.00 ns, 4.8029 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 4797515000.00 ns, 4.7975 s/op
+WorkloadResult   2: 1 op, 4799507800.00 ns, 4.7995 s/op
+WorkloadResult   3: 1 op, 4795135700.00 ns, 4.7951 s/op
+WorkloadResult   4: 1 op, 4794517600.00 ns, 4.7945 s/op
+WorkloadResult   5: 1 op, 4794888200.00 ns, 4.7949 s/op
+WorkloadResult   6: 1 op, 4801889700.00 ns, 4.8019 s/op
+WorkloadResult   7: 1 op, 4796974200.00 ns, 4.7970 s/op
+WorkloadResult   8: 1 op, 4801543800.00 ns, 4.8015 s/op
+WorkloadResult   9: 1 op, 4797011300.00 ns, 4.7970 s/op
+WorkloadResult  10: 1 op, 4797780600.00 ns, 4.7978 s/op
+WorkloadResult  11: 1 op, 4797021300.00 ns, 4.7970 s/op
+WorkloadResult  12: 1 op, 4797162800.00 ns, 4.7972 s/op
+WorkloadResult  13: 1 op, 4797500300.00 ns, 4.7975 s/op
+WorkloadResult  14: 1 op, 4802913900.00 ns, 4.8029 s/op
+
+// AfterAll
+// Benchmark Process 6624 has exited with code 0.
+
+Mean = 4.798 s, StdErr = 0.001 s (0.01%), N = 14, StdDev = 0.003 s
+Min = 4.795 s, Q1 = 4.797 s, Median = 4.797 s, Q3 = 4.799 s, Max = 4.803 s
+IQR = 0.002 s, LowerFence = 4.794 s, UpperFence = 4.802 s
+ConfidenceInterval = [4.795 s; 4.801 s] (CI 99.9%), Margin = 0.003 s (0.06% of Mean)
+Skewness = 0.56, Kurtosis = 2.03, MValue = 2
+
+// **************************
+// Benchmark: NewIndexerAndReference.UsingReference: DefaultJob [Size=100000, Order=Random]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "88d3f6ea-2976-4c0b-ad91-33bfd27f94ff.dll" --benchmarkName "Benchmarks.NewIndexerAndReference.UsingReference(Size: 100000, Order: Random)" --job "Default" --benchmarkId 2 in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\netcoreapp3.1\88d3f6ea-2976-4c0b-ad91-33bfd27f94ff\bin\Release\netcoreapp3.1
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 153800.00 ns, 153.8000 us/op
+WorkloadJitting  1: 1 op, 5001212700.00 ns, 5.0012 s/op
+
+WorkloadWarmup   1: 1 op, 4988829000.00 ns, 4.9888 s/op
+WorkloadWarmup   2: 1 op, 4984644800.00 ns, 4.9846 s/op
+WorkloadWarmup   3: 1 op, 4985388500.00 ns, 4.9854 s/op
+WorkloadWarmup   4: 1 op, 4986718200.00 ns, 4.9867 s/op
+WorkloadWarmup   5: 1 op, 4997233700.00 ns, 4.9972 s/op
+WorkloadWarmup   6: 1 op, 4985314700.00 ns, 4.9853 s/op
+WorkloadWarmup   7: 1 op, 4986878100.00 ns, 4.9869 s/op
+WorkloadWarmup   8: 1 op, 4985534700.00 ns, 4.9855 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 4986626000.00 ns, 4.9866 s/op
+WorkloadActual   2: 1 op, 4986558800.00 ns, 4.9866 s/op
+WorkloadActual   3: 1 op, 4985774000.00 ns, 4.9858 s/op
+WorkloadActual   4: 1 op, 4987818900.00 ns, 4.9878 s/op
+WorkloadActual   5: 1 op, 4986791900.00 ns, 4.9868 s/op
+WorkloadActual   6: 1 op, 4991332000.00 ns, 4.9913 s/op
+WorkloadActual   7: 1 op, 4985928100.00 ns, 4.9859 s/op
+WorkloadActual   8: 1 op, 4987353500.00 ns, 4.9874 s/op
+WorkloadActual   9: 1 op, 4988071500.00 ns, 4.9881 s/op
+WorkloadActual  10: 1 op, 4987276100.00 ns, 4.9873 s/op
+WorkloadActual  11: 1 op, 4987843100.00 ns, 4.9878 s/op
+WorkloadActual  12: 1 op, 4987112100.00 ns, 4.9871 s/op
+WorkloadActual  13: 1 op, 4983899400.00 ns, 4.9839 s/op
+WorkloadActual  14: 1 op, 4983577100.00 ns, 4.9836 s/op
+WorkloadActual  15: 1 op, 4989321700.00 ns, 4.9893 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 4986626000.00 ns, 4.9866 s/op
+WorkloadResult   2: 1 op, 4986558800.00 ns, 4.9866 s/op
+WorkloadResult   3: 1 op, 4985774000.00 ns, 4.9858 s/op
+WorkloadResult   4: 1 op, 4987818900.00 ns, 4.9878 s/op
+WorkloadResult   5: 1 op, 4986791900.00 ns, 4.9868 s/op
+WorkloadResult   6: 1 op, 4985928100.00 ns, 4.9859 s/op
+WorkloadResult   7: 1 op, 4987353500.00 ns, 4.9874 s/op
+WorkloadResult   8: 1 op, 4988071500.00 ns, 4.9881 s/op
+WorkloadResult   9: 1 op, 4987276100.00 ns, 4.9873 s/op
+WorkloadResult  10: 1 op, 4987843100.00 ns, 4.9878 s/op
+WorkloadResult  11: 1 op, 4987112100.00 ns, 4.9871 s/op
+WorkloadResult  12: 1 op, 4983899400.00 ns, 4.9839 s/op
+WorkloadResult  13: 1 op, 4983577100.00 ns, 4.9836 s/op
+WorkloadResult  14: 1 op, 4989321700.00 ns, 4.9893 s/op
+
+// AfterAll
+// Benchmark Process 23668 has exited with code 0.
+
+Mean = 4.987 s, StdErr = 0.000 s (0.01%), N = 14, StdDev = 0.002 s
+Min = 4.984 s, Q1 = 4.986 s, Median = 4.987 s, Q3 = 4.988 s, Max = 4.989 s
+IQR = 0.002 s, LowerFence = 4.984 s, UpperFence = 4.990 s
+ConfidenceInterval = [4.985 s; 4.988 s] (CI 99.9%), Margin = 0.002 s (0.04% of Mean)
+Skewness = -0.59, Kurtosis = 2.63, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\Benchmarks.NewIndexerAndReference-report.csv
+  BenchmarkDotNet.Artifacts\results\Benchmarks.NewIndexerAndReference-report-github.md
+  BenchmarkDotNet.Artifacts\results\Benchmarks.NewIndexerAndReference-report.html
+
+// * Detailed results *
+NewIndexerAndReference.Default: DefaultJob [Size=100000, Order=Random]
+Runtime = .NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 4.802 s, StdErr = 0.002 s (0.03%), N = 15, StdDev = 0.006 s
+Min = 4.795 s, Q1 = 4.797 s, Median = 4.800 s, Q3 = 4.806 s, Max = 4.812 s
+IQR = 0.010 s, LowerFence = 4.782 s, UpperFence = 4.821 s
+ConfidenceInterval = [4.796 s; 4.808 s] (CI 99.9%), Margin = 0.006 s (0.13% of Mean)
+Skewness = 0.56, Kurtosis = 1.75, MValue = 2
+-------------------- Histogram --------------------
+[4.792 s ; 4.816 s) | @@@@@@@@@@@@@@@
+---------------------------------------------------
+
+NewIndexerAndReference.UsingPointers: DefaultJob [Size=100000, Order=Random]
+Runtime = .NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 4.798 s, StdErr = 0.001 s (0.01%), N = 14, StdDev = 0.003 s
+Min = 4.795 s, Q1 = 4.797 s, Median = 4.797 s, Q3 = 4.799 s, Max = 4.803 s
+IQR = 0.002 s, LowerFence = 4.794 s, UpperFence = 4.802 s
+ConfidenceInterval = [4.795 s; 4.801 s] (CI 99.9%), Margin = 0.003 s (0.06% of Mean)
+Skewness = 0.56, Kurtosis = 2.03, MValue = 2
+-------------------- Histogram --------------------
+[4.793 s ; 4.804 s) | @@@@@@@@@@@@@@
+---------------------------------------------------
+
+NewIndexerAndReference.UsingReference: DefaultJob [Size=100000, Order=Random]
+Runtime = .NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 4.987 s, StdErr = 0.000 s (0.01%), N = 14, StdDev = 0.002 s
+Min = 4.984 s, Q1 = 4.986 s, Median = 4.987 s, Q3 = 4.988 s, Max = 4.989 s
+IQR = 0.002 s, LowerFence = 4.984 s, UpperFence = 4.990 s
+ConfidenceInterval = [4.985 s; 4.988 s] (CI 99.9%), Margin = 0.002 s (0.04% of Mean)
+Skewness = -0.59, Kurtosis = 2.63, MValue = 2
+-------------------- Histogram --------------------
+[4.983 s ; 4.990 s) | @@@@@@@@@@@@@@
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19043.1348 (21H1/May2021Update)
+AMD Ryzen 5 3600, 1 CPU, 12 logical and 6 physical cores
+.NET SDK=5.0.300
+  [Host]     : .NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.21 (CoreCLR 4.700.21.51404, CoreFX 4.700.21.51508), X64 RyuJIT
+
+
+|         Method |   Size |  Order |    Mean |    Error |   StdDev | Ratio |
+|--------------- |------- |------- |--------:|---------:|---------:|------:|
+|        Default | 100000 | Random | 4.802 s | 0.0062 s | 0.0058 s |  1.00 |
+|  UsingPointers | 100000 | Random | 4.798 s | 0.0029 s | 0.0026 s |  1.00 |
+| UsingReference | 100000 | Random | 4.987 s | 0.0018 s | 0.0016 s |  1.04 |
+
+// * Hints *
+Outliers
+  NewIndexerAndReference.UsingPointers: Default  -> 1 outlier  was  removed (4.81 s)
+  NewIndexerAndReference.UsingReference: Default -> 1 outlier  was  removed, 2 outliers were detected (4.98 s, 4.99 s)
+
+// * Legends *
+  Size   : Value of the 'Size' parameter
+  Order  : Value of the 'Order' parameter
+  Mean   : Arithmetic mean of all measurements
+  Error  : Half of 99.9% confidence interval
+  StdDev : Standard deviation of all measurements
+  Ratio  : Mean of the ratio distribution ([Current]/[Baseline])
+  1 s    : 1 Second (1 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:05:36 (336.91 sec), executed benchmarks: 3
+
+Global total time: 00:05:53 (353.17 sec), executed benchmarks: 3
+// * Artifacts cleanup *
