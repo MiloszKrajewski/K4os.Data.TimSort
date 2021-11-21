@@ -5,7 +5,7 @@ Author: Josh Bloch
 A stable, adaptive, iterative mergesort that requires far fewer than
 n lg(n) comparisons when running on partially sorted arrays, while
 offering performance comparable to a traditional mergesort when run
-on random arrays.  Like all proper mergesorts, this sort is stable and
+on random arrays.  Like all proper merge-sorts, this sort is stable and
 runs O(n log n) time (worst case).  In the worst case, this sort requires
 temporary storage space for n/2 object references; in the best case,
 it requires only a small constant amount of space.

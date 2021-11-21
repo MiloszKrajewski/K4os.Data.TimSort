@@ -7,18 +7,20 @@ namespace K4os.Data.TimSort.Adapters
 		public void Sort<T, TIndexer, TComparer>(TIndexer indexer, int capacity, TComparer comparer)
 			where TIndexer: ITimIndexer<T> where TComparer: ITimComparer<T>
 		{
-			AnySort.VerifyRange(capacity, 0, capacity);
-			IntroSorter<T, TIndexer, TComparer>.HeapSort(
-				indexer, 0, capacity, comparer);
+			#warning not implemented
+//			AnySort.VerifyRange(capacity, 0, capacity);
+//			IntroSorter<T, TIndexer, TComparer>.HeapSort(
+//				indexer, 0, capacity, comparer);
 		}
 
 		public void Sort<T, TIndexer, TComparer>(
 			TIndexer indexer, int capacity, int start, int length, TComparer comparer)
 			where TIndexer: ITimIndexer<T> where TComparer: ITimComparer<T>
 		{
-			AnySort.VerifyRange(capacity, start, length);
-			IntroSorter<T, TIndexer, TComparer>.HeapSort(
-				indexer, start, start + length, comparer);
+			#warning not implemented
+//			AnySort.VerifyRange(capacity, start, length);
+//			IntroSorter<T, TIndexer, TComparer>.HeapSort(
+//				indexer, start, start + length, comparer);
 		}
 	}
 }

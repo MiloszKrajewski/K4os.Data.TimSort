@@ -10,5 +10,5 @@ AMD Ryzen 5 3600, 1 CPU, 12 logical and 6 physical cores
 ```
 |  Method |   Size |  Order |     Mean |     Error |    StdDev | Ratio |
 |-------- |------- |------- |---------:|----------:|----------:|------:|
-| Default | 100000 | Random | 6.113 ms | 0.0087 ms | 0.0082 ms |  1.00 |
-|    Mine | 100000 | Random | 6.374 ms | 0.0085 ms | 0.0075 ms |  1.04 |
+| Default | 100000 | Random | 6.196 ms | 0.0129 ms | 0.0114 ms |  1.00 |
+|    Mine | 100000 | Random | 6.087 ms | 0.0093 ms | 0.0087 ms |  0.98 |

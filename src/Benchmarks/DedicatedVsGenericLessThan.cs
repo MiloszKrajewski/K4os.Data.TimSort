@@ -72,7 +72,7 @@ namespace Benchmarks
 		{
 			var counter = 0;
 			var length = _data.Length;
-			var comparer = new LessThan<double>();
+			var comparer = new ComparableLessThan<double>();
 			for (var i = 0; i < length; i++)
 				if (comparer.Lt(_data[i], Threshold))
 					counter++;

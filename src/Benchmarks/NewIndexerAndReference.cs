@@ -1,9 +1,5 @@
 using System;
-using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
-using Benchmarks.FiddleArea;
-using K4os.Data.TimSort;
-using K4os.Data.TimSort.Internals;
 
 namespace Benchmarks
 {
@@ -41,31 +37,21 @@ namespace Benchmarks
 		public void Default()
 		{
 			_data.CopyTo(_copy, 0);
-			NewIndexerAndReferenceSorter.DoubleSorter1(_copy.AsSpan());
+			IsIndexerAndReferenceProperlyInlined.DoubleSorter1(_copy.AsSpan());
 		}
 
 		[Benchmark]
 		public void UsingPointers()
 		{
 			_data.CopyTo(_copy, 0);
-			NewIndexerAndReferenceSorter.DoubleSorter2(_copy.AsSpan());
+			IsIndexerAndReferenceProperlyInlined.DoubleSorter2(_copy.AsSpan());
 		}
 
 		[Benchmark]
 		public void UsingReference()
 		{
 			_data.CopyTo(_copy, 0);
-			NewIndexerAndReferenceSorter<double, LessThan<double>>
-				.DoubleSorter3(_copy.AsSpan(), new LessThan<double>());
+			IsIndexerAndReferenceProperlyInlined.DoubleSorter3(_copy.AsSpan());
 		}
-		
-		[Benchmark]
-		public void UsingReferenceDedicated()
-		{
-			_data.CopyTo(_copy, 0);
-			NewIndexerAndReferenceSorter<double, LessThanDouble>
-				.DoubleSorter3(_copy.AsSpan(), new LessThanDouble());
-		}
-
 	}
 }

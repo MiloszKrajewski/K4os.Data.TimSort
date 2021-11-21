@@ -24,7 +24,7 @@ namespace K4os.Data.TimSort.Internals
 			where TComparer: ITimComparer<T> =>
 			!comparer.Lt(a, b);
 
-		#if NET5_0
+		#if NET5_0 || NET5_0_OR_GREATER
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Span<T> AsSpan<T>(this List<T> list) => CollectionsMarshal.AsSpan(list);
