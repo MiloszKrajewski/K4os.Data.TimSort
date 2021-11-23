@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Indexers
 {
 	public readonly struct ListIndexer<T>: IIndexer<T, IntReference>
 	{

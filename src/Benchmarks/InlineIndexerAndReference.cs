@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
-using Benchmarks.FiddleArea;
+using K4os.Data.TimSort.Comparers;
+using K4os.Data.TimSort.Indexers;
 
 namespace Benchmarks
 {
@@ -37,14 +38,14 @@ namespace Benchmarks
 		{
 			fixed (double* ptr0 = &array[0])
 			{
-				var indexer = new SpanIndexer<double>(ptr0);
+				var indexer = new PtrIndexer<double>(ptr0);
 				var length = array.Length;
 				GenericDoubleSorter3<
 						double,
-						SpanIndexer<double>,
-						SpanReference<double>,
-						LessThanDouble>
-					.Sort(indexer, length, new LessThanDouble());
+						PtrIndexer<double>,
+						PtrReference<double>,
+						DefaultLessThan<double>>
+					.Sort(indexer, length, default);
 			}
 		}
 

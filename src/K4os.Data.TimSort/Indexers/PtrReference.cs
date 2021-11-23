@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Indexers
 {
 	public readonly unsafe struct PtrReference<T>: IReference<PtrReference<T>>
 	{

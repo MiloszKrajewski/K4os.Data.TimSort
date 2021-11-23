@@ -4,22 +4,23 @@
     <TargetFrameworks>netstandard2.0;net5.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>default</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="TimComparer.generated.tt">
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Sorters\SortAlgorithmExtrensions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TimComparer.generated.cs</LastGenOutput>
+      <LastGenOutput>SortAlgorithmExtrensions.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="TimComparer.generated.cs">
+    <Compile Update="Sorters\SortAlgorithmExtrensions.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TimComparer.generated.tt</DependentUpon>
+      <DependentUpon>SortAlgorithmExtrensions.tt</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <Import Project="..\..\Common.targets" />
   <Import Project="..\..\Signing.targets" />

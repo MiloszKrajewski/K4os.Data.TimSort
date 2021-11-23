@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using K4os.Data.TimSort.Sorters;
 using Xunit;
 
 namespace K4os.Data.TimSort.Test
@@ -12,7 +13,7 @@ namespace K4os.Data.TimSort.Test
 		{
 			var array = Tools.BuildArray(0, 100_000);
 			var list = array.ToList();
-			TimSort.Sort(list, TimComparer.Double);
+			list.TimSort();
 			Tools.VerifyArray(list.ToArray());
 		}
 
@@ -21,7 +22,7 @@ namespace K4os.Data.TimSort.Test
 		{
 			var array = Tools.BuildArray(0, 100_000);
 			var list = new ArrayAsIList<double>(array);
-			TimSort.Sort(list);
+			list.TimSort();
 			Tools.VerifyArray(array);
 		}
 		
@@ -30,7 +31,7 @@ namespace K4os.Data.TimSort.Test
 		{
 			var array = Tools.BuildArray(0, 100_000);
 			IList<double> list = array;
-			TimSort.Sort(list);
+			list.TimSort();
 			Tools.VerifyArray(array);
 		}
 		
@@ -39,7 +40,7 @@ namespace K4os.Data.TimSort.Test
 		{
 			var array = Tools.BuildArray(0, 100_000).ToList();
 			IList<double> list = array;
-			TimSort.Sort(list);
+			list.TimSort();
 			Tools.VerifyArray(array.ToArray());
 		}
 	}

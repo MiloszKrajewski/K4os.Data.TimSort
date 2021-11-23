@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
-using Benchmarks.FiddleArea;
+using K4os.Data.TimSort.Comparers;
 
 namespace Benchmarks
 {
@@ -60,7 +60,7 @@ namespace Benchmarks
 		{
 			var counter = 0;
 			var length = _data.Length;
-			var comparer = new LessThanDouble();
+			var comparer = default(DefaultLessThan<double>);
 			for (var i = 0; i < length; i++)
 				if (comparer.Lt(_data[i], Threshold))
 					counter++;

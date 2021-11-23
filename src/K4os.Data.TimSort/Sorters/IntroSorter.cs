@@ -1,11 +1,14 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using K4os.Data.TimSort.Comparers;
+using K4os.Data.TimSort.Indexers;
 using K4os.Data.TimSort.Internals;
 
-namespace Benchmarks.FiddleArea
+namespace K4os.Data.TimSort.Sorters
 {
-	public class IntroSortAlgorithm<T, TIndexer, TReference, TLessThan>
+	public class IntroSorter<T, TIndexer, TReference, TLessThan>:
+		BasicSorter<T, TIndexer, TReference, TLessThan>
 		where TIndexer: IIndexer<T, TReference>
 		where TReference: IReference<TReference>
 		where TLessThan: ILessThan<T>
@@ -99,28 +102,6 @@ namespace Benchmarks.FiddleArea
 		#if NET5_0 || NET5_0_OR_GREATER
 		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 		#endif
-		public static void InsertionSort(
-			TIndexer indexer, TReference lo, TReference hi,
-			TLessThan comparer)
-		{
-			for (var i = lo.Inc(); i.Lt(hi); i = i.Inc())
-			{
-				var t = indexer[i];
-
-				var j = i.Dec();
-				while (j.GtEq(lo) && comparer.Lt(t, indexer[j]))
-				{
-					indexer[j.Inc()] = indexer[j];
-					j = j.Dec();
-				}
-
-				indexer[j.Inc()] = t;
-			}
-		}
-		
-		#if NET5_0 || NET5_0_OR_GREATER
-		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
-		#endif
 		public static void HeapSort(
 			TIndexer indexer, TReference lo, TReference hi,
 			TLessThan comparer)
@@ -170,32 +151,6 @@ namespace Benchmarks.FiddleArea
 			}
 
 			indexer[iP.Dec()] = d;
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void Sort2(
-			TIndexer indexer, TReference a, TReference b,
-			TLessThan comparer)
-		{
-			if (comparer.Gt(indexer[a], indexer[b])) indexer.Swap(a, b);
-		}
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void Sort3(
-			TIndexer indexer, TReference a, TReference b, TReference c,
-			TLessThan comparer)
-		{
-			Sort2(indexer, a, b, comparer);
-			Sort2(indexer, a, c, comparer);
-			Sort2(indexer, b, c, comparer);
-		}
-
-		[MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-		// ReSharper disable once UnusedMember.Local
-		// ReSharper disable once UnusedParameter.Local
-		private static void Padding(byte _)
-		{
-			/* do nothing */
 		}
 	}
 }

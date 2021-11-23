@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using K4os.Data.TimSort.Sorters;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
-using K4os.Data.TimSort;
 
 namespace Benchmarks
 {
@@ -34,37 +34,37 @@ namespace Benchmarks
 		[Benchmark]
 		public void TimSort_Native()
 		{
-			TimSort.Sort(_copy, TimComparer.Int32);
+			_copy.TimSort();
 		}
 		
 		[Benchmark]
-		public void TimSort_Default()
-		{
-			TimSort.Sort(_copy);
-		}
-
-		[Benchmark]
 		public void TimSort_Comparer()
 		{
-			TimSort.Sort(_copy, Comparer<int>.Default);
+			_copy.TimSort(Comparer<int>.Default);
 		}
 		
 		[Benchmark]
 		public void TimSort_Comparison()
 		{
-			TimSort.Sort(_copy, Comparer<int>.Default.Compare);
+			_copy.TimSort(Comparer<int>.Default.Compare);
 		}
 		
 		[Benchmark]
 		public void TimSort_Lambda()
 		{
-			TimSort.Sort(_copy, (a, b) => a - b);
+			_copy.TimSort((a, b) => a - b);
 		}
 		
 		[Benchmark]
 		public void TimSort_IComparer()
 		{
-			TimSort.Sort(_copy, (IComparer<int>)Comparer<int>.Default);
+			_copy.TimSort((IComparer<int>)Comparer<int>.Default);
+		}
+		
+		[Benchmark]
+		public void TimSort_IComparerAsFunc()
+		{
+			_copy.TimSort(Comparer<int>.Default.Compare);
 		}
 	}
 }

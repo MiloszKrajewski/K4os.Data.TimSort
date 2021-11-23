@@ -1,35 +1,7 @@
-using System;
 using System.Runtime.CompilerServices;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Indexers
 {
-	public interface ILessThan<in T>
-	{
-		bool Lt(T a, T b);
-	}
-
-	public interface IReference<TReference>
-	{
-		bool Eq(TReference other);
-		bool Lt(TReference other);
-		TReference Ofs(int offset);
-		int Dif(TReference other);
-	}
-
-	public interface IIndexer<T, TReference>
-		where TReference: IReference<TReference>
-	{
-		TReference Ref0 { get; }
-
-		T this[TReference reference] { get; set; }
-
-		void Swap(TReference a, TReference b);
-		void Copy(TReference source, TReference target, int length);
-		void Reverse(TReference lo, TReference hi);
-		void Export(TReference sourceOffset, Span<T> target, int length);
-		void Import(TReference targetOffset, ReadOnlySpan<T> source, int length);
-	}
-
 	public static class ReferenceExtensions
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -94,23 +66,5 @@ namespace TimSortRedo
 			reference = reference.Dec();
 			return result;
 		}
-	}
-
-	public static class LessThanExtensions
-	{
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool Gt<TLessThan, T>(this TLessThan comparer, T a, T b)
-			where TLessThan: ILessThan<T> =>
-			comparer.Lt(b, a);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool LtEq<TLessThan, T>(this TLessThan comparer, T a, T b)
-			where TLessThan: ILessThan<T> =>
-			!comparer.Lt(b, a);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static bool GtEq<TLessThan, T>(this TLessThan comparer, T a, T b)
-			where TLessThan: ILessThan<T> =>
-			!comparer.Lt(a, b);
 	}
 }

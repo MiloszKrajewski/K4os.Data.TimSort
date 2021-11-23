@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
-using Benchmarks.FiddleArea;
+using K4os.Data.TimSort.Comparers;
+using K4os.Data.TimSort.Indexers;
+using K4os.Data.TimSort.Sorters;
 
 namespace Benchmarks.Tuning
 {
@@ -21,12 +23,12 @@ namespace Benchmarks.Tuning
 
 			fixed (double* ptr0 = &data[0])
 			{
-				var indexer = new SpanIndexer<double>(ptr0);
+				var indexer = new PtrIndexer<double>(ptr0);
 				var length = data.Length;
-				IntroSortAlgorithm<
+				IntroSorter<
 						double,
-						SpanIndexer<double>,
-						SpanReference<double>,
+						PtrIndexer<double>,
+						PtrReference<double>,
 						DefaultLessThan<double>>
 					.HeapSort(
 						indexer,

@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Comparers
 {
-	public readonly struct DefaultLessThan<T>: ILessThan<T>
+	public readonly struct ComparableLessThan<T>: ILessThan<T>
+		where T: IComparable<T>
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static TOther As<TOther>(ref T a) => Unsafe.As<T, TOther>(ref a);
@@ -31,7 +31,7 @@ namespace TimSortRedo
 			typeof(T) == typeof(TimeSpan) ? As<TimeSpan>(ref a) < As<TimeSpan>(ref b) :
 			typeof(T) == typeof(DateTimeOffset) ? LtDateTimeOffset(a, b) :
 			// ...and fallback
-			Comparer<T>.Default.Compare(a, b) < 0;
+			a.CompareTo(b) < 0 ? true : false;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static bool LtDateTimeOffset(T a, T b) =>

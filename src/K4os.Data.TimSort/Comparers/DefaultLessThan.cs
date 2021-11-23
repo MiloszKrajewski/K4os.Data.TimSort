@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Comparers
 {
-	public readonly struct ComparableLessThan<T>: ILessThan<T>
-		where T: IComparable<T>
+	public readonly struct DefaultLessThan<T>: ILessThan<T>
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static TOther As<TOther>(ref T a) => Unsafe.As<T, TOther>(ref a);
@@ -31,7 +31,27 @@ namespace TimSortRedo
 			typeof(T) == typeof(TimeSpan) ? As<TimeSpan>(ref a) < As<TimeSpan>(ref b) :
 			typeof(T) == typeof(DateTimeOffset) ? LtDateTimeOffset(a, b) :
 			// ...and fallback
-			a.CompareTo(b) < 0 ? true : false;
+			Comparer<T>.Default.Compare(a, b) < 0;
+		
+		// this works because when generic class in expanded only one branch survives
+		// keep it in sync with list above
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public bool IsNative() =>
+			typeof(T) == typeof(bool) ||
+			typeof(T) == typeof(byte) ||
+			typeof(T) == typeof(sbyte) ||
+			typeof(T) == typeof(short) ||
+			typeof(T) == typeof(ushort) ||
+			typeof(T) == typeof(int) ||
+			typeof(T) == typeof(uint) ||
+			typeof(T) == typeof(long) ||
+			typeof(T) == typeof(ulong) ||
+			typeof(T) == typeof(float) ||
+			typeof(T) == typeof(double) ||
+			typeof(T) == typeof(decimal) ||
+			typeof(T) == typeof(DateTime) ||
+			typeof(T) == typeof(TimeSpan) ||
+			typeof(T) == typeof(DateTimeOffset);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static bool LtDateTimeOffset(T a, T b) =>

@@ -1,10 +1,13 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using K4os.Data.TimSort.Comparers;
+using K4os.Data.TimSort.Indexers;
 
-namespace TimSortRedo
+namespace K4os.Data.TimSort.Sorters
 {
-	internal class TimSorter<T, TIndexer, TReference, TLessThan>
+	internal class TimSorter<T, TIndexer, TReference, TLessThan>:
+		BasicSorter<T, TIndexer, TReference, TLessThan>
 		where TIndexer: IIndexer<T, TReference>
 		where TReference: struct, IReference<TReference>
 		where TLessThan: ILessThan<T>
@@ -109,25 +112,6 @@ namespace TimSortRedo
 			_runLength = new int[stackLength];
 		}
 		
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void ReverseRange(TIndexer array, TReference lo, TReference hi) => 
-			array.Reverse(lo, hi);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void CopyRange(
-			TIndexer array, TReference sourceIndex, TReference targetIndex, int length) =>
-			array.Copy(sourceIndex, targetIndex, length);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void CopyRange(
-			TIndexer source, TReference sourceIndex, T[] target, int targetIndex, int length) =>
-			source.Export(sourceIndex, target.AsSpan(targetIndex, length), length);
-
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private static void CopyRange(
-			T[] source, int sourceIndex, TIndexer target, TReference targetIndex, int length) =>
-			target.Import(targetIndex, source.AsSpan(sourceIndex, length), length);
-
 		/// <summary>
 		/// Returns the minimum acceptable run length for an array of the specified length.
 		/// Natural runs shorter than this will be extended with BinarySort.
@@ -281,81 +265,6 @@ namespace TimSortRedo
 			}
 
 			return runHi.Dif(lo);
-		}
-		
-		/// <summary>
-		/// Sorts the specified portion of the specified array using a binary insertion sort. This is the best method for 
-		/// sorting small numbers of elements. It requires O(n log n) compares, but O(n^2) data movement (worst case).
-		/// If the initial part of the specified range is already sorted, this method can take advantage of it: the method 
-		/// assumes that the elements from index <c>lo</c>, inclusive, to <c>start</c>, exclusive are already sorted.
-		/// </summary>
-		/// <param name="array">the array in which a range is to be sorted.</param>
-		/// <param name="lo">the index of the first element in the range to be sorted.</param>
-		/// <param name="hi">the index after the last element in the range to be sorted.</param>
-		/// <param name="start">start the index of the first element in the range that is not already known to be sorted 
-		/// (<c><![CDATA[lo <= start <= hi]]></c>)</param>
-		/// <param name="comparer">The comparator to used for the sort.</param>
-		private static void BinarySort(
-			TIndexer array, TReference lo, TReference hi, TReference start, TLessThan comparer)
-		{
-			Debug.Assert(lo.LtEq(start) && start.LtEq(hi));
-
-			var a = array;
-			
-			if (start.Eq(lo)) start = start.Inc();
-
-			for (/* nothing */; start.Lt(hi); start = start.Inc())
-			{
-				var pivot = a[start];
-
-				// Set left (and right) to the index where a[start] (pivot) belongs
-				var left = lo;
-				var right = start;
-				Debug.Assert(left.LtEq(right));
-
-				// Invariants:
-				// * pivot >= all in [lo, left).
-				// * pivot < all in [right, start).
-				while (left.Lt(right))
-				{
-					var mid = left.Mid(right);
-					if (comparer.Lt(pivot, a[mid])) // c(pivot, a[mid]) < 0
-					{
-						right = mid;
-					}
-					else
-					{
-						left = mid.Inc();
-					}
-				}
-
-				Debug.Assert(left.Eq(right));
-
-				// The invariants still hold: pivot >= all in [lo, left) and
-				// pivot < all in [left, start), so pivot belongs at left.  Note
-				// that if there are elements equal to pivot, left points to the
-				// first slot after them -- that's why this sort is stable.
-				// Slide elements over to make room to make room for pivot.
-
-				var n = start.Dif(left); // The number of elements to move
-
-				// switch is just an optimization for copyRange in default case
-				switch (n)
-				{
-					case 2:
-						a[left.Add(2)] = a[left.Inc()];
-						a[left.Inc()] = a[left];
-						break;
-					case 1:
-						a[left.Inc()] = a[left];
-						break;
-					default:
-						CopyRange(a, left, left.Inc(), n);
-						break;
-				}
-
-				a[left] = pivot;
-			}
 		}
 		
 		/// <summary>

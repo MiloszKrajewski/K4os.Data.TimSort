@@ -1,4 +1,5 @@
 using System;
+using K4os.Data.TimSort.Sorters;
 using Xunit;
 
 namespace K4os.Data.TimSort.Test
@@ -21,7 +22,7 @@ namespace K4os.Data.TimSort.Test
 		public void RandomData(int seed, int length)
 		{
 			var array = Tools.BuildArray(seed, length);
-			TimSort.Sort(array, TimComparer.Double);
+			array.TimSort();
 			Tools.VerifyArray(array);
 		}
 		
@@ -41,7 +42,7 @@ namespace K4os.Data.TimSort.Test
 		public void SortedData(int seed, int length)
 		{
 			var array = Tools.BuildSortedArray(seed, length);
-			TimSort.Sort(array, TimComparer.Double);
+			array.TimSort();
 			Tools.VerifyArray(array);
 		}
 		
@@ -62,7 +63,7 @@ namespace K4os.Data.TimSort.Test
 		{
 			var array = Tools.BuildSortedArray(seed, length);
 			Array.Reverse(array);
-			TimSort.Sort(array, TimComparer.Double);
+			array.TimSort();
 			Tools.VerifyArray(array);
 		}
 	}
