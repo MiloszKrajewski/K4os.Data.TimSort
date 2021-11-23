@@ -27,8 +27,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceImplementation", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{D044E950-9493-4533-AF93-A823CF54FBFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimSortRedo", "TimSortRedo\TimSortRedo.csproj", "{B37FD493-3770-461F-9CAB-A25DBBA12A95}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{D044E950-9493-4533-AF93-A823CF54FBFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D044E950-9493-4533-AF93-A823CF54FBFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D044E950-9493-4533-AF93-A823CF54FBFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B37FD493-3770-461F-9CAB-A25DBBA12A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B37FD493-3770-461F-9CAB-A25DBBA12A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B37FD493-3770-461F-9CAB-A25DBBA12A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B37FD493-3770-461F-9CAB-A25DBBA12A95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

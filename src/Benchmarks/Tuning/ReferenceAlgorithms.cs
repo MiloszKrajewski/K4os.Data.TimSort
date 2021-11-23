@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using ReferenceImplementation;
 
 namespace Benchmarks.Tuning
 {
@@ -61,6 +64,11 @@ namespace Benchmarks.Tuning
 			var t = data[a];
 			data[a] = data[b];
 			data[b] = t;
+		}
+
+		public static void LegacyTimSort(double[] keys)
+		{
+			ArrayTimSort<double>.Sort(keys, 0, keys.Length, Comparer<double>.Default.Compare);
 		}
 	}
 }

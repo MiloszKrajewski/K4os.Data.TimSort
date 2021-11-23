@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
 <meta charset='utf-8' />
-<title>Benchmarks.Tuning.QuickSortTuning-20211123-214839</title>
+<title>Benchmarks.Tuning.TimSortTuning-20211123-220639</title>
 
 <style type="text/css">
 	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
@@ -22,10 +22,11 @@ AMD Ryzen 5 3600, 1 CPU, 12 logical and 6 physical cores
 <pre><code></code></pre>
 
 <table>
-<thead><tr><th>Method</th><th>Size</th><th>Order</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th>
+<thead><tr><th>    Method</th><th>Size</th><th>Order</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th>
 </tr>
-</thead><tbody><tr><td>Theirs</td><td>100000</td><td>Random</td><td>6.110 ms</td><td>0.0046 ms</td><td>0.0041 ms</td><td>1.00</td>
-</tr><tr><td>Mine</td><td>100000</td><td>Random</td><td>6.061 ms</td><td>0.0116 ms</td><td>0.0103 ms</td><td>0.99</td>
+</thead><tbody><tr><td>Theirs</td><td>100000</td><td>Random</td><td>17.53 ms</td><td>0.066 ms</td><td>0.058 ms</td><td>1.00</td>
+</tr><tr><td>Mine</td><td>100000</td><td>Random</td><td>11.87 ms</td><td>0.030 ms</td><td>0.026 ms</td><td>0.68</td>
+</tr><tr><td>MineWithComparer</td><td>100000</td><td>Random</td><td>16.89 ms</td><td>0.040 ms</td><td>0.038 ms</td><td>0.96</td>
 </tr></tbody></table>
 </body>
 </html>

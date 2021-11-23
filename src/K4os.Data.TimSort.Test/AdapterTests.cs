@@ -6,6 +6,13 @@ using Xunit;
 
 namespace K4os.Data.TimSort.Test
 {
+	public readonly struct DoubleLike: IComparable<DoubleLike>
+	{
+		public readonly double Value;
+		public DoubleLike(double value) => Value = value;
+		public int CompareTo(DoubleLike other) => Value.CompareTo(other.Value);
+	}
+	
 	public class AdapterTests
 	{
 		[Fact]
@@ -42,6 +49,14 @@ namespace K4os.Data.TimSort.Test
 			IList<double> list = array;
 			list.TimSort();
 			Tools.VerifyArray(array.ToArray());
+		}
+
+		[Fact]
+		public void ComparableComparerDoesNotCrash()
+		{
+			var list = Tools.BuildArray(0, 100_000).Select(v => new DoubleLike(v)).ToList();
+			list.TimSort();
+			Tools.VerifyArray(list.Select(v => v.Value).ToArray());
 		}
 	}
 }
