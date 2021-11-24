@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using K4os.Data.TimSort.Comparers;
 using K4os.Data.TimSort.Indexers;
@@ -7,14 +6,27 @@ using K4os.Data.TimSort.Internals;
 
 namespace K4os.Data.TimSort.Sorters
 {
+	/// <summary>
+	/// Introspective sort implementation.
+	/// https://en.wikipedia.org/wiki/Introsort
+	/// </summary>
+	/// <typeparam name="T">Type of item.</typeparam>
+	/// <typeparam name="TIndexer">Type of array.</typeparam>
+	/// <typeparam name="TReference">Type of reference.</typeparam>
+	/// <typeparam name="TLessThan">Type of comparer.</typeparam>
 	public class IntroSorter<T, TIndexer, TReference, TLessThan>:
 		BasicSorter<T, TIndexer, TReference, TLessThan>
 		where TIndexer: IIndexer<T, TReference>
-		where TReference: IReference<TReference>
+		where TReference: struct, IReference<TReference>
 		where TLessThan: ILessThan<T>
 	{
 		private const int MinQuickSortWidth = 16;
 
+		/// <summary>Sorts range of array using IntroSort.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="lo">Lower bound (inclusive).</param>
+		/// <param name="hi">Upper bound (exclusive).</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void IntroSort(
 			TIndexer indexer,
@@ -99,6 +111,11 @@ namespace K4os.Data.TimSort.Sorters
 			return lo;
 		}
 		
+		/// <summary>Sorts range of array using HeapSort.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="lo">Lower bound (inclusive).</param>
+		/// <param name="hi">Upper bound (exclusive).</param>
+		/// <param name="comparer">Comparer.</param>
 		#if NET5_0 || NET5_0_OR_GREATER
 		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 		#endif
@@ -120,7 +137,6 @@ namespace K4os.Data.TimSort.Sorters
 			}
 		}
 
-		[SuppressMessage("ReSharper", "InconsistentNaming")]
 		private static void DownHeap(
 			TIndexer indexer, TReference offset,
 			int i, int n,

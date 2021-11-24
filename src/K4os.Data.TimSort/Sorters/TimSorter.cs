@@ -225,49 +225,6 @@ namespace K4os.Data.TimSort.Sorters
 		}
 		
 		/// <summary>
-		/// Returns the length of the run beginning at the specified position in
-		/// the specified array and reverses the run if it is descending (ensuring
-		/// that the run will always be ascending when the method returns).
-		/// A run is the longest ascending sequence with: <c><![CDATA[a[lo] <= a[lo + 1] <= a[lo + 2] <= ...]]></c>
-		/// or the longest descending sequence with: <c><![CDATA[a[lo] >  a[lo + 1] >  a[lo + 2] >  ...]]></c>
-		/// For its intended use in a stable mergesort, the strictness of the
-		/// definition of "descending" is needed so that the call can safely
-		/// reverse a descending sequence without violating stability.
-		/// </summary>
-		/// <param name="array">the array in which a run is to be counted and possibly reversed.</param>
-		/// <param name="lo">index of the first element in the run.</param>
-		/// <param name="hi">index after the last element that may be contained in the run. It is required 
-		/// that <c><![CDATA[lo < hi]]></c>.</param>
-		/// <param name="comparer">the comparator to used for the sort.</param>
-		/// <returns>the length of the run beginning at the specified position in the specified array</returns>
-		private static int CountRunAndMakeAscending(
-			TIndexer array, TReference lo, TReference hi, TLessThan comparer)
-		{
-			Debug.Assert(lo.Lt(hi));
-			
-			var a = array;
-			var runHi = lo.Inc();
-			if (runHi.Eq(hi)) return 1;
-
-			// Find end of run, and reverse range if descending
-			if (comparer.Lt(a[runHi.PostInc()], a[lo])) // c(a[runHi++], a[lo]) < 0
-			{
-				// Descending
-				while (runHi.Lt(hi) && comparer.Lt(a[runHi], a[runHi.Dec()]))
-					runHi = runHi.Inc();
-				ReverseRange(a, lo, runHi);
-			}
-			else
-			{
-				// Ascending
-				while (runHi.Lt(hi) && comparer.GtEq(a[runHi], a[runHi.Dec()])) // c(a[runHi], a[runHi - 1]) >= 0
-					runHi = runHi.Inc();
-			}
-
-			return runHi.Dif(lo);
-		}
-		
-		/// <summary>
 		/// Locates the position at which to insert the specified key into the
 		/// specified sorted range; if the range contains an element equal to key,
 		/// returns the index of the leftmost equal element.
@@ -469,9 +426,19 @@ namespace K4os.Data.TimSort.Sorters
 			// If array is small, do a "mini-TimSort" with no merges
 			if (width < MIN_MERGE)
 			{
-				var initRunLength = CountRunAndMakeAscending(array, lo, hi, comparer);
-				BinarySort(array, lo, hi, lo.Add(initRunLength), comparer);
-				return;
+				switch (width)
+				{
+					case 2: 
+						Sort2(array, lo, comparer);
+						return;
+					case 3:
+						Sort3(array, lo, comparer);
+						return;
+					default: {
+						BinarySort(array, lo, hi, comparer);
+						return;
+					}
+				}
 			}
 
 			// March over the array once, left to right, finding natural runs,

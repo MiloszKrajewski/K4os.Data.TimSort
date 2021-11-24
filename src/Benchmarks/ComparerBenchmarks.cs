@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using K4os.Data.TimSort.Sorters;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
+using K4os.Data.TimSort;
 
 namespace Benchmarks
 {

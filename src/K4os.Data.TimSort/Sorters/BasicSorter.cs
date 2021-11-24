@@ -6,16 +6,79 @@ using K4os.Data.TimSort.Indexers;
 
 namespace K4os.Data.TimSort.Sorters
 {
+	/// <summary>
+	/// Base class sort sorters providing some utilities.
+	/// </summary>
+	/// <typeparam name="T">Type of item.</typeparam>
+	/// <typeparam name="TIndexer">Type of indexer.</typeparam>
+	/// <typeparam name="TReference">Type of reference.</typeparam>
+	/// <typeparam name="TLessThan">Type of comparer.</typeparam>
 	public class BasicSorter<T, TIndexer, TReference, TLessThan>
 		where TIndexer: IIndexer<T, TReference>
-		where TReference: IReference<TReference>
+		where TReference: struct, IReference<TReference>
 		where TLessThan: ILessThan<T>
 	{
+		/// <summary>
+		/// Performs binary insertion sort on given array.
+		/// https://ducmanhphan.github.io/2019-05-24-Binary-Insertion-sort/
+		/// </summary>
+		/// <param name="array">Array to be sorted.</param>
+		/// <param name="lo">Lower bound (inclusive).</param>
+		/// <param name="hi">Upper bound (exclusive).</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void BinarySort(
 			TIndexer array, TReference lo, TReference hi, TLessThan comparer)
 		{
-			BinarySort(array, lo, hi, lo, comparer);
+			if (hi.Dif(lo) < 2) return;
+			var ascendingRun = CountRunAndMakeAscending(array, lo, hi, comparer);
+			BinarySort(array, lo, hi, lo.Add(ascendingRun), comparer);
+		}
+		
+		/// <summary>
+		/// Returns the length of the run beginning at the specified position in
+		/// the specified array and reverses the run if it is descending (ensuring
+		/// that the run will always be ascending when the method returns).
+		/// A run is the longest ascending sequence with: <c><![CDATA[a[lo] <= a[lo + 1] <= a[lo + 2] <= ...]]></c>
+		/// or the longest descending sequence with: <c><![CDATA[a[lo] >  a[lo + 1] >  a[lo + 2] >  ...]]></c>
+		/// For its intended use in a stable mergesort, the strictness of the
+		/// definition of "descending" is needed so that the call can safely
+		/// reverse a descending sequence without violating stability.
+		/// </summary>
+		/// <param name="array">the array in which a run is to be counted and possibly reversed.</param>
+		/// <param name="lo">index of the first element in the run.</param>
+		/// <param name="hi">index after the last element that may be contained in the run. It is required 
+		/// that <c><![CDATA[lo < hi]]></c>.</param>
+		/// <param name="comparer">the comparator to used for the sort.</param>
+		/// <returns>the length of the run beginning at the specified position in the specified array</returns>
+		#if NET5_0 || NET5_0_OR_GREATER
+		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
+		#endif
+		protected static int CountRunAndMakeAscending(
+			TIndexer array, TReference lo, TReference hi, TLessThan comparer)
+		{
+			Debug.Assert(lo.Lt(hi));
+			
+			var a = array;
+			var runHi = lo.Inc();
+			if (runHi.Eq(hi)) return 1;
+
+			// Find end of run, and reverse range if descending
+			if (comparer.Lt(a[runHi.PostInc()], a[lo])) // c(a[runHi++], a[lo]) < 0
+			{
+				// Descending
+				while (runHi.Lt(hi) && comparer.Lt(a[runHi], a[runHi.Dec()]))
+					runHi = runHi.Inc();
+				ReverseRange(a, lo, runHi);
+			}
+			else
+			{
+				// Ascending
+				while (runHi.Lt(hi) && comparer.GtEq(a[runHi], a[runHi.Dec()])) // c(a[runHi], a[runHi - 1]) >= 0
+					runHi = runHi.Inc();
+			}
+
+			return runHi.Dif(lo);
 		}
 
 		/// <summary>
@@ -98,34 +161,46 @@ namespace K4os.Data.TimSort.Sorters
 			}
 		}
 
+		/// <summary>Insertion sort implementation.</summary>
+		/// <param name="array">Array to be sorted.</param>
+		/// <param name="lo">Lower bound (inclusive).</param>
+		/// <param name="hi">Upper bound (exclusive).</param>
+		/// <param name="comparer">Comparer.</param>
 		#if NET5_0 || NET5_0_OR_GREATER
 		[MethodImpl(MethodImplOptions.AggressiveOptimization)]
 		#endif
 		public static void InsertionSort(
-			TIndexer indexer, TReference lo, TReference hi,
+			TIndexer array, TReference lo, TReference hi,
 			TLessThan comparer)
 		{
 			for (var i = lo.Inc(); i.Lt(hi); i = i.Inc())
 			{
-				var t = indexer[i];
+				var t = array[i];
 
 				var j = i.Dec();
-				while (j.GtEq(lo) && comparer.Lt(t, indexer[j]))
+				while (j.GtEq(lo) && comparer.Lt(t, array[j]))
 				{
-					indexer[j.Inc()] = indexer[j];
+					array[j.Inc()] = array[j];
 					j = j.Dec();
 				}
 
-				indexer[j.Inc()] = t;
+				array[j.Inc()] = t;
 			}
 		}
 
+		/// <summary>Sorts two elements in array.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="lo">Lower bound.</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Sort2(TIndexer indexer, TReference lo, TLessThan comparer)
-		{
+		public static void Sort2(TIndexer indexer, TReference lo, TLessThan comparer) => 
 			Sort2(indexer, lo, lo.Inc(), comparer);
-		}
 
+		/// <summary>Sorts two elements in array.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="a">First element.</param>
+		/// <param name="b">Second element.</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Sort2(
 			TIndexer indexer, TReference a, TReference b,
@@ -134,12 +209,20 @@ namespace K4os.Data.TimSort.Sorters
 			if (comparer.Gt(indexer[a], indexer[b])) indexer.Swap(a, b);
 		}
 
+		/// <summary>Sorts three elements in array.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="lo">Lower bound.</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void Sort3(TIndexer indexer, TReference a, TLessThan comparer)
-		{
-			Sort3(indexer, a, a.Inc(), a.Add(2), comparer);
-		}
+		public static void Sort3(TIndexer indexer, TReference lo, TLessThan comparer) => 
+			Sort3(indexer, lo, lo.Inc(), lo.Add(2), comparer);
 
+		/// <summary>Sorts two elements in array.</summary>
+		/// <param name="indexer">Array.</param>
+		/// <param name="a">First element.</param>
+		/// <param name="b">Second element.</param>
+		/// <param name="c">Third element.</param>
+		/// <param name="comparer">Comparer.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static void Sort3(
 			TIndexer indexer, TReference a, TReference b, TReference c,
@@ -150,20 +233,41 @@ namespace K4os.Data.TimSort.Sorters
 			Sort2(indexer, b, c, comparer);
 		}
 		
+		/// <summary>Reverses range of array.</summary>
+		/// <param name="array">Array.</param>
+		/// <param name="lo">Lower bound (inclusive).</param>
+		/// <param name="hi">Upper bound (exclusive).</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected static void ReverseRange(TIndexer array, TReference lo, TReference hi) => 
 			array.Reverse(lo, hi);
 
+		/// <summary>Copies range of array.</summary>
+		/// <param name="array">Array.</param>
+		/// <param name="sourceIndex">Source reference.</param>
+		/// <param name="targetIndex">Target reference.</param>
+		/// <param name="length">Length of range.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected static void CopyRange(
 			TIndexer array, TReference sourceIndex, TReference targetIndex, int length) =>
 			array.Copy(sourceIndex, targetIndex, length);
 
+		/// <summary>Copies range of array.</summary>
+		/// <param name="source">Source array.</param>
+		/// <param name="sourceIndex">Source reference.</param>
+		/// <param name="target">Target array.</param>
+		/// <param name="targetIndex">Target reference.</param>
+		/// <param name="length">Length of range.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected static void CopyRange(
 			TIndexer source, TReference sourceIndex, T[] target, int targetIndex, int length) =>
 			source.Export(sourceIndex, target.AsSpan(targetIndex, length), length);
 
+		/// <summary>Copies range of array.</summary>
+		/// <param name="source">Source array.</param>
+		/// <param name="sourceIndex">Source reference.</param>
+		/// <param name="target">Target array.</param>
+		/// <param name="targetIndex">Target reference.</param>
+		/// <param name="length">Length of range.</param>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		protected static void CopyRange(
 			T[] source, int sourceIndex, TIndexer target, TReference targetIndex, int length) =>

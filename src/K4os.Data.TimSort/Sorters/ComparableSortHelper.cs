@@ -33,8 +33,8 @@ namespace K4os.Data.TimSort.Sorters
 			var loArg = Expression.Parameter(typeof(TReference));
 			var hiArg = Expression.Parameter(typeof(TReference));
 
-			var methodInfo = typeof(SortAlgorithmExtensions).GetMethod(
-				nameof(SortAlgorithmExtensions.ComparableSort),
+			var methodInfo = typeof(TimSort.SortAlgorithmExtensions).GetMethod(
+				nameof(TimSort.SortAlgorithmExtensions.ComparableSort),
 				BindingFlags.Static | BindingFlags.NonPublic);
 			if (methodInfo is null)
 				return null;

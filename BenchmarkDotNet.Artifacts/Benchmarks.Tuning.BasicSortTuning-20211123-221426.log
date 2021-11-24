@@ -1,0 +1,208 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 2 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+Unable to find .sln or .csproj file. Will use current directory D:\Projects\K4os.Data.TimSort to search for project file. If you don't use .sln file on purpose it should not be a problem.
+// start dotnet restore  /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\net5\a052e798-856e-4023-95aa-8edea1cf0970
+// command took 1.04s and exited with 0
+// start dotnet build -c Release  --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\net5\a052e798-856e-4023-95aa-8edea1cf0970
+// command took 13.57s and exited with 1
+// start dotnet build -c Release  --no-restore --no-dependencies /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\net5\a052e798-856e-4023-95aa-8edea1cf0970
+// command took 1.93s and exited with 0
+// ***** Done, took 00:00:16 (16.61 sec)   *****
+// Found 2 benchmarks:
+//   BasicSortTuning.Insertion: DefaultJob [Size=100000, Order=Random]
+//   BasicSortTuning.Binary: DefaultJob [Size=100000, Order=Random]
+
+// **************************
+// Benchmark: BasicSortTuning.Insertion: DefaultJob [Size=100000, Order=Random]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "a052e798-856e-4023-95aa-8edea1cf0970.dll" --benchmarkName "Benchmarks.Tuning.BasicSortTuning.Insertion(Size: 100000, Order: Random)" --job "Default" --benchmarkId 0 in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\net5\a052e798-856e-4023-95aa-8edea1cf0970\bin\Release\net5.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 159600.00 ns, 159.6000 us/op
+WorkloadJitting  1: 1 op, 1231774800.00 ns, 1.2318 s/op
+
+WorkloadWarmup   1: 1 op, 1205020800.00 ns, 1.2050 s/op
+WorkloadWarmup   2: 1 op, 1214215300.00 ns, 1.2142 s/op
+WorkloadWarmup   3: 1 op, 1210379900.00 ns, 1.2104 s/op
+WorkloadWarmup   4: 1 op, 1203925500.00 ns, 1.2039 s/op
+WorkloadWarmup   5: 1 op, 1209505300.00 ns, 1.2095 s/op
+WorkloadWarmup   6: 1 op, 1204901400.00 ns, 1.2049 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 1209343600.00 ns, 1.2093 s/op
+WorkloadActual   2: 1 op, 1205746100.00 ns, 1.2057 s/op
+WorkloadActual   3: 1 op, 1213949300.00 ns, 1.2139 s/op
+WorkloadActual   4: 1 op, 1210066400.00 ns, 1.2101 s/op
+WorkloadActual   5: 1 op, 1212784100.00 ns, 1.2128 s/op
+WorkloadActual   6: 1 op, 1209734700.00 ns, 1.2097 s/op
+WorkloadActual   7: 1 op, 1203553900.00 ns, 1.2036 s/op
+WorkloadActual   8: 1 op, 1210511800.00 ns, 1.2105 s/op
+WorkloadActual   9: 1 op, 1209963600.00 ns, 1.2100 s/op
+WorkloadActual  10: 1 op, 1212229400.00 ns, 1.2122 s/op
+WorkloadActual  11: 1 op, 1210509200.00 ns, 1.2105 s/op
+WorkloadActual  12: 1 op, 1205020300.00 ns, 1.2050 s/op
+WorkloadActual  13: 1 op, 1204456900.00 ns, 1.2045 s/op
+WorkloadActual  14: 1 op, 1213157900.00 ns, 1.2132 s/op
+WorkloadActual  15: 1 op, 1209371900.00 ns, 1.2094 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 1209343600.00 ns, 1.2093 s/op
+WorkloadResult   2: 1 op, 1205746100.00 ns, 1.2057 s/op
+WorkloadResult   3: 1 op, 1213949300.00 ns, 1.2139 s/op
+WorkloadResult   4: 1 op, 1210066400.00 ns, 1.2101 s/op
+WorkloadResult   5: 1 op, 1212784100.00 ns, 1.2128 s/op
+WorkloadResult   6: 1 op, 1209734700.00 ns, 1.2097 s/op
+WorkloadResult   7: 1 op, 1203553900.00 ns, 1.2036 s/op
+WorkloadResult   8: 1 op, 1210511800.00 ns, 1.2105 s/op
+WorkloadResult   9: 1 op, 1209963600.00 ns, 1.2100 s/op
+WorkloadResult  10: 1 op, 1212229400.00 ns, 1.2122 s/op
+WorkloadResult  11: 1 op, 1210509200.00 ns, 1.2105 s/op
+WorkloadResult  12: 1 op, 1205020300.00 ns, 1.2050 s/op
+WorkloadResult  13: 1 op, 1204456900.00 ns, 1.2045 s/op
+WorkloadResult  14: 1 op, 1213157900.00 ns, 1.2132 s/op
+WorkloadResult  15: 1 op, 1209371900.00 ns, 1.2094 s/op
+
+// AfterAll
+// Benchmark Process 20332 has exited with code 0.
+
+Mean = 1.209 s, StdErr = 0.001 s (0.07%), N = 15, StdDev = 0.003 s
+Min = 1.204 s, Q1 = 1.208 s, Median = 1.210 s, Q3 = 1.211 s, Max = 1.214 s
+IQR = 0.004 s, LowerFence = 1.202 s, UpperFence = 1.217 s
+ConfidenceInterval = [1.206 s; 1.213 s] (CI 99.9%), Margin = 0.003 s (0.29% of Mean)
+Skewness = -0.43, Kurtosis = 1.83, MValue = 2
+
+// **************************
+// Benchmark: BasicSortTuning.Binary: DefaultJob [Size=100000, Order=Random]
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "a052e798-856e-4023-95aa-8edea1cf0970.dll" --benchmarkName "Benchmarks.Tuning.BasicSortTuning.Binary(Size: 100000, Order: Random)" --job "Default" --benchmarkId 1 in D:\Projects\K4os.Data.TimSort\src\Benchmarks\bin\release\net5\a052e798-856e-4023-95aa-8edea1cf0970\bin\Release\net5.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: DefaultJob
+
+OverheadJitting  1: 1 op, 154800.00 ns, 154.8000 us/op
+WorkloadJitting  1: 1 op, 453660600.00 ns, 453.6606 ms/op
+
+WorkloadWarmup   1: 1 op, 452309400.00 ns, 452.3094 ms/op
+WorkloadWarmup   2: 1 op, 452271600.00 ns, 452.2716 ms/op
+WorkloadWarmup   3: 1 op, 451437700.00 ns, 451.4377 ms/op
+WorkloadWarmup   4: 1 op, 452862300.00 ns, 452.8623 ms/op
+WorkloadWarmup   5: 1 op, 452483900.00 ns, 452.4839 ms/op
+WorkloadWarmup   6: 1 op, 452423100.00 ns, 452.4231 ms/op
+WorkloadWarmup   7: 1 op, 452838200.00 ns, 452.8382 ms/op
+WorkloadWarmup   8: 1 op, 452612900.00 ns, 452.6129 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 452796200.00 ns, 452.7962 ms/op
+WorkloadActual   2: 1 op, 452402600.00 ns, 452.4026 ms/op
+WorkloadActual   3: 1 op, 451231800.00 ns, 451.2318 ms/op
+WorkloadActual   4: 1 op, 450674100.00 ns, 450.6741 ms/op
+WorkloadActual   5: 1 op, 450666600.00 ns, 450.6666 ms/op
+WorkloadActual   6: 1 op, 450834300.00 ns, 450.8343 ms/op
+WorkloadActual   7: 1 op, 450764600.00 ns, 450.7646 ms/op
+WorkloadActual   8: 1 op, 451018600.00 ns, 451.0186 ms/op
+WorkloadActual   9: 1 op, 450684400.00 ns, 450.6844 ms/op
+WorkloadActual  10: 1 op, 450633900.00 ns, 450.6339 ms/op
+WorkloadActual  11: 1 op, 450902500.00 ns, 450.9025 ms/op
+WorkloadActual  12: 1 op, 450976300.00 ns, 450.9763 ms/op
+WorkloadActual  13: 1 op, 449232200.00 ns, 449.2322 ms/op
+WorkloadActual  14: 1 op, 449622800.00 ns, 449.6228 ms/op
+WorkloadActual  15: 1 op, 452575400.00 ns, 452.5754 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 451231800.00 ns, 451.2318 ms/op
+WorkloadResult   2: 1 op, 450674100.00 ns, 450.6741 ms/op
+WorkloadResult   3: 1 op, 450666600.00 ns, 450.6666 ms/op
+WorkloadResult   4: 1 op, 450834300.00 ns, 450.8343 ms/op
+WorkloadResult   5: 1 op, 450764600.00 ns, 450.7646 ms/op
+WorkloadResult   6: 1 op, 451018600.00 ns, 451.0186 ms/op
+WorkloadResult   7: 1 op, 450684400.00 ns, 450.6844 ms/op
+WorkloadResult   8: 1 op, 450633900.00 ns, 450.6339 ms/op
+WorkloadResult   9: 1 op, 450902500.00 ns, 450.9025 ms/op
+WorkloadResult  10: 1 op, 450976300.00 ns, 450.9763 ms/op
+WorkloadResult  11: 1 op, 449232200.00 ns, 449.2322 ms/op
+WorkloadResult  12: 1 op, 449622800.00 ns, 449.6228 ms/op
+
+// AfterAll
+// Benchmark Process 14464 has exited with code 0.
+
+Mean = 450.604 ms, StdErr = 0.168 ms (0.04%), N = 12, StdDev = 0.583 ms
+Min = 449.232 ms, Q1 = 450.658 ms, Median = 450.724 ms, Q3 = 450.921 ms, Max = 451.232 ms
+IQR = 0.263 ms, LowerFence = 450.265 ms, UpperFence = 451.315 ms
+ConfidenceInterval = [449.857 ms; 451.350 ms] (CI 99.9%), Margin = 0.746 ms (0.17% of Mean)
+Skewness = -1.31, Kurtosis = 3.38, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\Benchmarks.Tuning.BasicSortTuning-report.csv
+  BenchmarkDotNet.Artifacts\results\Benchmarks.Tuning.BasicSortTuning-report-github.md
+  BenchmarkDotNet.Artifacts\results\Benchmarks.Tuning.BasicSortTuning-report.html
+
+// * Detailed results *
+BasicSortTuning.Insertion: DefaultJob [Size=100000, Order=Random]
+Runtime = .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 1.209 s, StdErr = 0.001 s (0.07%), N = 15, StdDev = 0.003 s
+Min = 1.204 s, Q1 = 1.208 s, Median = 1.210 s, Q3 = 1.211 s, Max = 1.214 s
+IQR = 0.004 s, LowerFence = 1.202 s, UpperFence = 1.217 s
+ConfidenceInterval = [1.206 s; 1.213 s] (CI 99.9%), Margin = 0.003 s (0.29% of Mean)
+Skewness = -0.43, Kurtosis = 1.83, MValue = 2
+-------------------- Histogram --------------------
+[1.202 s ; 1.216 s) | @@@@@@@@@@@@@@@
+---------------------------------------------------
+
+BasicSortTuning.Binary: DefaultJob [Size=100000, Order=Random]
+Runtime = .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 450.604 ms, StdErr = 0.168 ms (0.04%), N = 12, StdDev = 0.583 ms
+Min = 449.232 ms, Q1 = 450.658 ms, Median = 450.724 ms, Q3 = 450.921 ms, Max = 451.232 ms
+IQR = 0.263 ms, LowerFence = 450.265 ms, UpperFence = 451.315 ms
+ConfidenceInterval = [449.857 ms; 451.350 ms] (CI 99.9%), Margin = 0.746 ms (0.17% of Mean)
+Skewness = -1.31, Kurtosis = 3.38, MValue = 2
+-------------------- Histogram --------------------
+[448.898 ms ; 451.566 ms) | @@@@@@@@@@@@
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.1348 (21H2)
+AMD Ryzen 5 3600, 1 CPU, 12 logical and 6 physical cores
+.NET SDK=5.0.300
+  [Host]     : .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
+  DefaultJob : .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
+
+
+|    Method |   Size |  Order |       Mean |   Error |  StdDev | Ratio |
+|---------- |------- |------- |-----------:|--------:|--------:|------:|
+| Insertion | 100000 | Random | 1,209.4 ms | 3.48 ms | 3.26 ms |  1.00 |
+|    Binary | 100000 | Random |   450.6 ms | 0.75 ms | 0.58 ms |  0.37 |
+
+// * Hints *
+Outliers
+  BasicSortTuning.Binary: Default -> 3 outliers were removed, 5 outliers were detected (449.23 ms, 449.62 ms, 452.40 ms..452.80 ms)
+
+// * Legends *
+  Size   : Value of the 'Size' parameter
+  Order  : Value of the 'Order' parameter
+  Mean   : Arithmetic mean of all measurements
+  Error  : Half of 99.9% confidence interval
+  StdDev : Standard deviation of all measurements
+  Ratio  : Mean of the ratio distribution ([Current]/[Baseline])
+  1 ms   : 1 Millisecond (0.001 sec)
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:00:38 (38.31 sec), executed benchmarks: 2
+
+Global total time: 00:00:54 (54.93 sec), executed benchmarks: 2
+// * Artifacts cleanup *

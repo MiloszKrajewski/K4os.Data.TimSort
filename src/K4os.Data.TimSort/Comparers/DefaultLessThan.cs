@@ -5,12 +5,18 @@ using System.Runtime.CompilerServices;
 
 namespace K4os.Data.TimSort.Comparers
 {
+	/// <summary>
+	/// Default comparer using native %lt; operator for known types and
+	/// falling back to <see cref="Comparer{T}.Default"/> for other types.
+	/// </summary>
+	/// <typeparam name="T">Type of item.</typeparam>
 	public readonly struct DefaultLessThan<T>: ILessThan<T>
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static TOther As<TOther>(ref T a) => Unsafe.As<T, TOther>(ref a);
 
 		// this works because when generic class in expanded only one branch survives
+		/// <inheritdoc />
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[SuppressMessage("ReSharper", "RedundantTernaryExpression")]
 		public bool Lt(T a, T b) =>
@@ -30,11 +36,15 @@ namespace K4os.Data.TimSort.Comparers
 			typeof(T) == typeof(DateTime) ? As<DateTime>(ref a) < As<DateTime>(ref b) :
 			typeof(T) == typeof(TimeSpan) ? As<TimeSpan>(ref a) < As<TimeSpan>(ref b) :
 			typeof(T) == typeof(DateTimeOffset) ? LtDateTimeOffset(a, b) :
+			typeof(T) == typeof(string) ? LtString(a, b) :
+			typeof(T) == typeof(Guid) ? LtGuid(a, b) :
 			// ...and fallback
 			Comparer<T>.Default.Compare(a, b) < 0;
-		
+
 		// this works because when generic class in expanded only one branch survives
 		// keep it in sync with list above
+		/// <summary>Determines if item type is natively handled.</summary>
+		/// <returns><c>true</c> it item type is natively handled; <c>false</c> otherwise.</returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool IsNative() =>
 			typeof(T) == typeof(bool) ||
@@ -51,10 +61,20 @@ namespace K4os.Data.TimSort.Comparers
 			typeof(T) == typeof(decimal) ||
 			typeof(T) == typeof(DateTime) ||
 			typeof(T) == typeof(TimeSpan) ||
-			typeof(T) == typeof(DateTimeOffset);
+			typeof(T) == typeof(DateTimeOffset) ||
+			typeof(T) == typeof(string) ||
+			typeof(T) == typeof(Guid);
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static bool LtDateTimeOffset(T a, T b) =>
 			As<DateTimeOffset>(ref a) < As<DateTimeOffset>(ref b);
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static bool LtString(T a, T b) => 
+			string.CompareOrdinal(As<string>(ref a), As<string>(ref b)) < 0;
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static bool LtGuid(T a, T b) =>
+			As<Guid>(ref a).CompareTo(As<Guid>(ref b)) < 0;
 	}
 }

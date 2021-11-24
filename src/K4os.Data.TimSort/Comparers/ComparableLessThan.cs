@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 
 namespace K4os.Data.TimSort.Comparers
 {
+	/// <summary><see cref="ILessThan{T}"/> implementation for <see cref="IComparable{T}"/>.</summary>
+	/// <typeparam name="T">Type of item.</typeparam>
 	public readonly struct ComparableLessThan<T>: ILessThan<T>
 		where T: IComparable<T>
 	{
@@ -11,6 +13,7 @@ namespace K4os.Data.TimSort.Comparers
 		private static TOther As<TOther>(ref T a) => Unsafe.As<T, TOther>(ref a);
 
 		// this works because when generic class in expanded only one branch survives
+		/// <inheritdoc />
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		[SuppressMessage("ReSharper", "RedundantTernaryExpression")]
 		public bool Lt(T a, T b) =>
@@ -30,11 +33,21 @@ namespace K4os.Data.TimSort.Comparers
 			typeof(T) == typeof(DateTime) ? As<DateTime>(ref a) < As<DateTime>(ref b) :
 			typeof(T) == typeof(TimeSpan) ? As<TimeSpan>(ref a) < As<TimeSpan>(ref b) :
 			typeof(T) == typeof(DateTimeOffset) ? LtDateTimeOffset(a, b) :
+			typeof(T) == typeof(string) ? LtString(a, b) :
+			typeof(T) == typeof(Guid) ? LtGuid(a, b) :
 			// ...and fallback
 			a.CompareTo(b) < 0 ? true : false;
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static bool LtDateTimeOffset(T a, T b) =>
 			As<DateTimeOffset>(ref a) < As<DateTimeOffset>(ref b);
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static bool LtString(T a, T b) => 
+			string.CompareOrdinal(As<string>(ref a), As<string>(ref b)) < 0;
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static bool LtGuid(T a, T b) =>
+			As<Guid>(ref a).CompareTo(As<Guid>(ref b)) < 0;
 	}
 }

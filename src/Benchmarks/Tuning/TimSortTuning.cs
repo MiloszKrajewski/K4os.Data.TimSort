@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
+using K4os.Data.TimSort;
 using K4os.Data.TimSort.Sorters;
 
 namespace Benchmarks.Tuning
