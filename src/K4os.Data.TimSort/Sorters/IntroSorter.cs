@@ -14,7 +14,7 @@ namespace K4os.Data.TimSort.Sorters
 	/// <typeparam name="TIndexer">Type of array.</typeparam>
 	/// <typeparam name="TReference">Type of reference.</typeparam>
 	/// <typeparam name="TLessThan">Type of comparer.</typeparam>
-	public class IntroSorter<T, TIndexer, TReference, TLessThan>:
+	internal class IntroSorter<T, TIndexer, TReference, TLessThan>:
 		BasicSorter<T, TIndexer, TReference, TLessThan>
 		where TIndexer: IIndexer<T, TReference>
 		where TReference: struct, IReference<TReference>

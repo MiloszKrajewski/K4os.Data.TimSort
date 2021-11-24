@@ -25,16 +25,17 @@ namespace Benchmarks.Tuning
 			{
 				var indexer = new PtrIndexer<double>(ptr0);
 				var length = data.Length;
-				IntroSorter<
-						double,
-						PtrIndexer<double>,
-						PtrReference<double>,
-						DefaultLessThan<double>>
-					.HeapSort(
-						indexer,
-						indexer.Ref0,
-						indexer.Ref0.Add(length),
-						new DefaultLessThan<double>());
+				IntroSortAlgorithm.Default.Sort<
+					double,
+					PtrIndexer<double>,
+					PtrReference<double>,
+					DefaultLessThan<double>
+				>(
+					indexer,
+					indexer.Ref0,
+					indexer.Ref0.Add(length),
+					new DefaultLessThan<double>()
+				);
 			}
 		}
 	}

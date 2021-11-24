@@ -3,10 +3,13 @@ using K4os.Data.TimSort.Indexers;
 
 namespace K4os.Data.TimSort.Sorters
 {
-	public struct InsertionSortAlgorithm: ISortAlgorithm
+	/// <summary>InsertionSort adapter for <see cref="ISortAlgorithm"/>.</summary>
+	public readonly struct InsertionSortAlgorithm: ISortAlgorithm
 	{
+		/// <summary>Default instance.</summary>
 		public static readonly InsertionSortAlgorithm Default = new();
 
+		/// <inheritdoc />
 		public void Sort<T, TIndexer, TReference, TLessThan>(
 			TIndexer array, TReference lo, TReference hi, TLessThan comparer)
 			where TIndexer: IIndexer<T, TReference>
