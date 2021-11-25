@@ -1,6 +1,6 @@
 using System;
 
-namespace K4os.Data.TimSort.Test
+namespace K4os.Data.TimSort.Test.Utilities
 {
 	public class Tools
 	{

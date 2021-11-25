@@ -1,5 +1,6 @@
 using System;
 using K4os.Data.TimSort.Sorters;
+using K4os.Data.TimSort.Test.Utilities;
 using Xunit;
 
 namespace K4os.Data.TimSort.Test
