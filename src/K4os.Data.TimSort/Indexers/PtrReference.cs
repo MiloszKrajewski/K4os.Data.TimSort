@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace K4os.Data.TimSort.Indexers
 {
@@ -56,6 +57,6 @@ namespace K4os.Data.TimSort.Indexers
 		/// <returns><see cref="Span{T}"/></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static unsafe Span<T> Span<T>(this PtrReference<T> reference, int length) =>
-			new(reference.Ptr, length);
+			MemoryMarshal.CreateSpan(ref Unsafe.AsRef<T>(reference.Ptr), length);
 	}
 }

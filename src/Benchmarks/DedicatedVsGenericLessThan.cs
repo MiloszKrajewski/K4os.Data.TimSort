@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using K4os.Data.TimSort.Comparers;
 
@@ -8,12 +9,10 @@ namespace Benchmarks
 	public class DedicatedVsGenericLessThan
 	{
 		private double[] _data;
+		private double _threshold;
 
 		[Params(100_000)]
 		public int Size { get; set; }
-
-		[Params(0)]
-		public double Threshold { get; set; }
 
 		public int Result { get; set; }
 
@@ -24,6 +23,8 @@ namespace Benchmarks
 		public void Init()
 		{
 			_data = BuildArray(Size, Order);
+			_threshold = Size * 0.5;
+
 		}
 
 		private static double[] BuildArray(int size, DataOrder order)
@@ -38,19 +39,13 @@ namespace Benchmarks
 			return a;
 		}
 		
-		[Benchmark]
-		public void Linq()
-		{
-			Result = _data.Count(v => v < Threshold);
-		}
-
 		[Benchmark(Baseline = true)]
 		public void Manual()
 		{
 			var counter = 0;
 			var length = _data.Length;
 			for (var i = 0; i < length; i++)
-				if (_data[i] < Threshold)
+				if (_data[i] < _threshold)
 					counter++;
 			Result = counter;
 		}
@@ -60,9 +55,9 @@ namespace Benchmarks
 		{
 			var counter = 0;
 			var length = _data.Length;
-			var comparer = default(DefaultLessThan<double>);
+			var comparer = new LessThanDouble();
 			for (var i = 0; i < length; i++)
-				if (comparer.Lt(_data[i], Threshold))
+				if (comparer.Lt(_data[i], _threshold))
 					counter++;
 			Result = counter;
 		}
@@ -74,9 +69,15 @@ namespace Benchmarks
 			var length = _data.Length;
 			var comparer = new ComparableLessThan<double>();
 			for (var i = 0; i < length; i++)
-				if (comparer.Lt(_data[i], Threshold))
+				if (comparer.Lt(_data[i], _threshold))
 					counter++;
 			Result = counter;
 		}
+	}
+
+	public struct LessThanDouble: ILessThan<double>
+	{
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public bool Lt(double a, double b) => a < b;
 	}
 }

@@ -10,5 +10,11 @@
     <ProjectReference Include="..\K4os.Data.TimSort\K4os.Data.TimSort.csproj" />
     <ProjectReference Include="..\ReferenceImplementation\ReferenceImplementation.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Fakes\firstnames.txt" />
+    <EmbeddedResource Include="Fakes\firstnames.txt" />
+    <None Remove="Fakes\lastnames.txt" />
+    <EmbeddedResource Include="Fakes\lastnames.txt" />
+  </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -10,6 +10,14 @@ namespace K4os.Data.TimSort.Internals
 	internal static class PolyfillExtensions
 	{
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static ref byte Ref0<T>(this Span<T> span) => 
+			ref Unsafe.As<T, byte>(ref span[0]);
+		
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static ref byte Ref0<T>(this T[] array) => 
+			ref Unsafe.As<T, byte>(ref array[0]);
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static Span<T> AsSpan<T>(this List<T> list) => 
 			SpanExtractor.GetSpan(list);
 

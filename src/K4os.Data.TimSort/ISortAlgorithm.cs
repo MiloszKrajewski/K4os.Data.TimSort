@@ -113,7 +113,7 @@ namespace K4os.Data.TimSort
 			if (!ValidateBounds(span))
 				return;
 
-			fixed (void* ptr0 = &Unsafe.As<T, byte>(ref span[0]))
+			fixed (void* ptr0 = &span.Ref0())
 			{
 				var indexer = new PtrIndexer<T>(ptr0);
 				sorter.Sort<T, PtrIndexer<T>, PtrReference<T>, TLessThan>(
@@ -133,7 +133,7 @@ namespace K4os.Data.TimSort
 			if (!ValidateBounds(span))
 				return;
 
-			fixed (void* ptr0 = &Unsafe.As<T, byte>(ref span[0]))
+			fixed (void* ptr0 = &span.Ref0())
 			{
 				var indexer = new PtrIndexer<T>(ptr0);
 				sorter.SortDefaultOrder<T, TSorter, PtrIndexer<T>, PtrReference<T>>(

@@ -24,12 +24,13 @@ namespace Benchmarks
 			var r = new Random(0);
 			for (var i = 0; i < l; i++) a[i] = r.Next();
 			_data = a;
+			_copy = new int[a.Length];
 		}
 		
 		[IterationSetup]
 		public void Clone()
 		{
-			_copy = _data.ToArray();
+			_data.CopyTo(_copy, 0);
 		}
 		
 		[Benchmark]
@@ -60,12 +61,6 @@ namespace Benchmarks
 		public void TimSort_IComparer()
 		{
 			_copy.TimSort((IComparer<int>)Comparer<int>.Default);
-		}
-		
-		[Benchmark]
-		public void TimSort_IComparerAsFunc()
-		{
-			_copy.TimSort(Comparer<int>.Default.Compare);
 		}
 	}
 }

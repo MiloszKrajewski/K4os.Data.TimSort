@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using K4os.Data.TimSort.Comparers;
 using K4os.Data.TimSort.Indexers;
+using K4os.Data.TimSort.Internals;
 
 namespace K4os.Data.TimSort.Sorters
 {
@@ -311,7 +312,7 @@ namespace K4os.Data.TimSort.Sorters
 		private static unsafe int GallopLeft(
 			T key, T[] array, int lo, int length, int hint, TLessThan comparer)
 		{
-			fixed (void* ptr0 = &Unsafe.As<T, byte>(ref array[0]))
+			fixed (void* ptr0 = &array.Ref0())
 			{
 				var indexer = new PtrIndexer<T>(ptr0);
 				return TimSorter<T, PtrIndexer<T>, PtrReference<T>, TLessThan>
@@ -403,7 +404,7 @@ namespace K4os.Data.TimSort.Sorters
 		private static unsafe int GallopRight(
 			T key, T[] array, int lo, int length, int hint, TLessThan comparer)
 		{
-			fixed (void* ptr0 = &Unsafe.As<T, byte>(ref array[0]))
+			fixed (void* ptr0 = &array.Ref0())
 			{
 				var indexer = new PtrIndexer<T>(ptr0);
 				return TimSorter<T, PtrIndexer<T>, PtrReference<T>, TLessThan>

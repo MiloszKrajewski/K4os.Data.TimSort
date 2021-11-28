@@ -54,5 +54,16 @@ namespace K4os.Data.TimSort.Test
 			list.TimSort();
 			Tools.VerifyArray(list.Select(v => v.Value).ToArray());
 		}
+
+		[Fact]
+		public void ComparableComparerIsAutomaticallySelected()
+		{
+			var list = Tools
+				.BuildArray(0, 100_000)
+				.Select(v => new ReveredComparableWrapper<double>(v))
+				.ToList();
+			list.TimSort();
+			Tools.VerifyArray(list.Select(v => v.Value).Reverse().ToArray());
+		}
 	}
 }
