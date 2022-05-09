@@ -118,14 +118,13 @@ class Targets: NukeBuild
 			if (!GitTasks.GitHasCleanWorkingCopy())
 				throw new Exception("Git working copy is not clean");
 			
-			if (GitTasks.GitIsDetached())
-				throw new Exception("Git working copy is detached");
-			
 			if (!GitRepository.IsOnMainOrMasterBranch())
 				throw new Exception("Releases should be done from the master branch");
 
 			var commit = store["commit"];
 			if (GitRepository.Commit != commit)
 				throw new Exception("Release was done with another commit");
+
+			GitTasks.Git("push");
 		});
 }
