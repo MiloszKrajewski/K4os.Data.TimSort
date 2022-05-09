@@ -116,26 +116,28 @@ class Targets: NukeBuild
 	Target Publish => _ => _
 		.Executes(() =>
 		{
+			var apiKey = Secrets["nuget"]["accessKey"];
+			var nugetUrl = "https://www.nuget.org/api/v2/package";
 			var store = new ValueStore(OutputDirectory / ".release");
+			var commit = store["commit"];
 
 			if (!GitTasks.GitHasCleanWorkingCopy())
 				throw new Exception("Git working copy is not clean");
 			
-			if (!GitRepository.IsOnMainOrMasterBranch())
+			if (GitTasks.GitCurrentBranch() != "main")
 				throw new Exception("Releases should be done from the master branch");
 
-			var commit = store["commit"];
-			if (GitRepository.Commit != commit)
+			if (GitTasks.GitCurrentCommit() != commit)
 				throw new Exception("Release was done with another commit");
 
-			GitTasks.Git("push");
+			GitTasks.Git("push ");
 			
 			var version = store["version"];
 			foreach (var package in GlobFiles(OutputDirectory, $"*.{version}.nupkg"))
 			{
 				DotNetNuGetPush(s => s
-					.SetSource("https://www.nuget.org/api/v2/package")
-					.SetApiKey(Secrets["nuget"]["accessKey"])
+					.SetSource(nugetUrl)
+					.SetApiKey(apiKey)
 					.SetTargetPath(package));
 			}
 		});
