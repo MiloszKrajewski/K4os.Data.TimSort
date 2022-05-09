@@ -111,7 +111,6 @@ class Targets: NukeBuild
 		});
 
 	Target Publish => _ => _
-		.DependsOn(Release)
 		.Executes(() =>
 		{
 			var store = new ValueStore(OutputDirectory / ".release");
