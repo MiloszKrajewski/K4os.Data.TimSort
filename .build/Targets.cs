@@ -127,9 +127,12 @@ class Targets: NukeBuild
 
 			GitTasks.Git("push");
 
+			Console.WriteLine("!!!");
 			var version = store["version"];
+			Console.WriteLine($"!!! {version}");
 			foreach (var package in GlobFiles(OutputDirectory, $"*.{version}.nupkg"))
 			{
+				Console.WriteLine($"!!! {package}");
 				DotNetNuGetPush(s => s.SetTargetPath(package));
 			}
 		});
