@@ -126,5 +126,7 @@ class Targets: NukeBuild
 				throw new Exception("Release was done with another commit");
 
 			GitTasks.Git("push");
+
+			DotNetNuGetPush(s => s);
 		});
 }
