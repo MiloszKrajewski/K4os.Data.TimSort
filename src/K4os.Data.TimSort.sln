@@ -15,17 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{835ECD
 		..\paket.dependencies = ..\paket.dependencies
 		..\README.md = ..\README.md
 		..\.secrets.cfg = ..\.secrets.cfg
-		..\Common.targets = ..\Common.targets
 		..\LICENSE = ..\LICENSE
 		..\settings.cfg = ..\settings.cfg
 		..\.gitignore = ..\.gitignore
 		..\Signing.targets = ..\Signing.targets
 		..\paket.lock = ..\paket.lock
+		..\Directory.Build.props = ..\Directory.Build.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceImplementation", "ReferenceImplementation\ReferenceImplementation.csproj", "{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmarks", "Benchmarks\Benchmarks.csproj", "{D044E950-9493-4533-AF93-A823CF54FBFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\.build\_build.csproj", "{E34D4314-0BC4-4D3F-88FF-EDC3F83DE429}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E34D4314-0BC4-4D3F-88FF-EDC3F83DE429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34D4314-0BC4-4D3F-88FF-EDC3F83DE429}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E30641-991E-4010-92FB-2D9A7DBA4FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU

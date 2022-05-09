@@ -94,7 +94,7 @@ namespace K4os.Data.TimSort.Indexers
 		public static TReference Mid<TReference>(this TReference lo, TReference hi)
 			where TReference: IReference<TReference> =>
 			lo.Add(hi.Dif(lo) >> 1);
-		
+
 		/// <summary>Post increment reference. Equivalent of "this++".
 		/// Please note, there is no "PreInc" ("++this") as it can be implemented easily
 		/// as "this = this.Inc()" while it is not so trivial with "this++".</summary>

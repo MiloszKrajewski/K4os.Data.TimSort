@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
+using System.Diagnostics.CodeAnalysis;
 using K4os.Data.TimSort.Comparers;
 using K4os.Data.TimSort.Indexers;
 using K4os.Data.TimSort.Internals;
@@ -8,7 +8,8 @@ using K4os.Data.TimSort.Internals;
 namespace K4os.Data.TimSort.Sorters
 {
 	internal class TimSorter<T, TIndexer, TReference, TLessThan>:
-		BasicSorter<T, TIndexer, TReference, TLessThan>
+		BasicSorter<T, TIndexer, TReference, TLessThan>,
+		IDisposable
 		where TIndexer: IIndexer<T, TReference>
 		where TReference: struct, IReference<TReference>
 		where TLessThan: ILessThan<T>
@@ -49,7 +50,7 @@ namespace K4os.Data.TimSort.Sorters
 
 		/// <summary>Cached length of array, it won't change.</summary>
 		private readonly int _arrayLength;
-		
+
 		/// <summary>The comparator for this sort.</summary>
 		private readonly TLessThan _comparer;
 
@@ -60,10 +61,8 @@ namespace K4os.Data.TimSort.Sorters
 		/// </summary>
 		private int _minGallop = MIN_GALLOP;
 
-		/// <summary>
-		/// Temp storage for merges.
-		/// </summary>
-		private T[] _mergeBuffer;
+		/// <summary>Temp storage for merges.</summary>
+		private T[]? _mergeBuffer;
 
 		/// <summary>
 		/// A stack of pending runs yet to be merged.  Run i starts at
@@ -94,7 +93,8 @@ namespace K4os.Data.TimSort.Sorters
 				arrayLength < 2 * INITIAL_TMP_STORAGE_LENGTH
 					? arrayLength >> 1
 					: INITIAL_TMP_STORAGE_LENGTH;
-			_mergeBuffer = new T[mergeBufferLength];
+
+			_mergeBuffer = SmartPool.AllocateArray<T>(mergeBufferLength);
 
 			// Allocate runs-to-be-merged stack (which cannot be expanded).  The
 			// stack length requirements are described in listsort.txt.  The C
@@ -112,7 +112,7 @@ namespace K4os.Data.TimSort.Sorters
 			_runBase = new TReference[stackLength];
 			_runLength = new int[stackLength];
 		}
-		
+
 		/// <summary>
 		/// Returns the minimum acceptable run length for an array of the specified length.
 		/// Natural runs shorter than this will be extended with BinarySort.
@@ -128,7 +128,7 @@ namespace K4os.Data.TimSort.Sorters
 		private static int GetMinimumRunLength(int n)
 		{
 			Debug.Assert(n >= 0);
-			
+
 			var r = 0; // Becomes 1 if any 1 bits are shifted off
 			while (n >= MIN_MERGE)
 			{
@@ -154,7 +154,7 @@ namespace K4os.Data.TimSort.Sorters
 			{
 				var n = _stackSize - 2;
 				var rl = _runLength;
-				
+
 				if (n > 0 && rl[n - 1] <= rl[n] + rl[n + 1])
 				{
 					if (rl[n - 1] < rl[n + 1]) n--;
@@ -206,7 +206,9 @@ namespace K4os.Data.TimSort.Sorters
 		/// <returns>tmp, whether or not it grew</returns>
 		private T[] EnsureCapacity(int minCapacity)
 		{
-			if (_mergeBuffer.Length >= minCapacity) 
+			ThrowIfNull(_mergeBuffer);
+			
+			if (_mergeBuffer.Length >= minCapacity)
 				return _mergeBuffer;
 
 			// Compute smallest power of 2 > minCapacity
@@ -218,13 +220,21 @@ namespace K4os.Data.TimSort.Sorters
 			newSize |= newSize >> 16;
 			newSize++;
 
-			newSize = newSize < 0 
-				? minCapacity 
+			newSize = newSize < 0
+				? minCapacity
 				: Math.Min(newSize, _arrayLength >> 1);
+			
+			SmartPool.ReallocateArray(ref _mergeBuffer, newSize);
 
-			return _mergeBuffer = new T[newSize];
+			return _mergeBuffer!; // we know it's not null
 		}
-		
+
+		private static void ThrowIfNull([NotNull] object? subject)
+		{
+			if (subject is null)
+				throw new InvalidOperationException("Cannot access object in disposed state.");
+		}
+
 		/// <summary>
 		/// Locates the position at which to insert the specified key into the
 		/// specified sorted range; if the range contains an element equal to key,
@@ -244,7 +254,7 @@ namespace K4os.Data.TimSort.Sorters
 			T key, TIndexer array, TReference lo, int length, int hint, TLessThan comparer)
 		{
 			Debug.Assert(length > 0 && hint >= 0 && hint < length);
-			
+
 			var a = array;
 			var lastOfs = 0;
 			var ofs = 1;
@@ -253,7 +263,8 @@ namespace K4os.Data.TimSort.Sorters
 			{
 				// Gallop right until a[base+hint+lastOfs] < key <= a[base+hint+ofs]
 				var maxOfs = length - hint;
-				while (ofs < maxOfs && comparer.Gt(key, a[lo.Add(hint + ofs)])) // comparer(key, a[lo + hint + ofs]) > 0
+				while (ofs < maxOfs && comparer.Gt(
+					       key, a[lo.Add(hint + ofs)])) // comparer(key, a[lo + hint + ofs]) > 0
 				{
 					lastOfs = ofs;
 					ofs = (ofs << 1) + 1;
@@ -272,7 +283,8 @@ namespace K4os.Data.TimSort.Sorters
 			{
 				// Gallop left until a[base+hint-ofs] < key <= a[base+hint-lastOfs]
 				var maxOfs = hint + 1;
-				while (ofs < maxOfs && comparer.LtEq(key, a[lo.Add(hint - ofs)])) // comparer(key, a[lo + hint - ofs]) <= 0
+				while (ofs < maxOfs && comparer.LtEq(
+					       key, a[lo.Add(hint - ofs)])) // comparer(key, a[lo + hint - ofs]) <= 0
 				{
 					lastOfs = ofs;
 					ofs = (ofs << 1) + 1;
@@ -308,7 +320,7 @@ namespace K4os.Data.TimSort.Sorters
 			Debug.Assert(lastOfs == ofs); // so a[base + ofs - 1] < key <= a[base + ofs]
 			return ofs;
 		}
-		
+
 		private static unsafe int GallopLeft(
 			T key, T[] array, int lo, int length, int hint, TLessThan comparer)
 		{
@@ -319,7 +331,7 @@ namespace K4os.Data.TimSort.Sorters
 					.GallopLeft(key, indexer, indexer.Ref0.Add(lo), length, hint, comparer);
 			}
 		}
-		
+
 		/// <summary>
 		/// Like GallopLeft, except that if the range contains an element equal to
 		/// key, GallopRight returns the index after the rightmost equal element.
@@ -421,7 +433,7 @@ namespace K4os.Data.TimSort.Sorters
 			TIndexer array, TReference lo, TReference hi, TLessThan comparer)
 		{
 			var width = hi.Dif(lo);
-			if (width < 2) 
+			if (width < 2)
 				return; // Arrays of size 0 and 1 are always sorted
 
 			// If array is small, do a "mini-TimSort" with no merges
@@ -429,7 +441,7 @@ namespace K4os.Data.TimSort.Sorters
 			{
 				switch (width)
 				{
-					case 2: 
+					case 2:
 						Sort2(array, lo, comparer);
 						return;
 					case 3:
@@ -448,7 +460,7 @@ namespace K4os.Data.TimSort.Sorters
 			var sorter = new TimSorter<T, TIndexer, TReference, TLessThan>(
 				array, hi.Dif(lo), comparer);
 			var minRun = GetMinimumRunLength(width);
-			
+
 			do
 			{
 				// Identify next run
@@ -476,8 +488,9 @@ namespace K4os.Data.TimSort.Sorters
 			Debug.Assert(lo.Eq(hi));
 			sorter.MergeForceCollapse();
 			Debug.Assert(sorter._stackSize == 1);
+			sorter.Dispose();
 		}
-		
+
 		/// <summary>
 		/// Merges two adjacent runs in place, in a stable fashion. The first element of the first run must be greater than 
 		/// the first element of the second run (a[base1] &gt; a[base2]), and the last element of the first run 
@@ -556,7 +569,8 @@ namespace K4os.Data.TimSort.Sorters
 				do
 				{
 					Debug.Assert(len1 > 1 && len2 > 0);
-					count1 = GallopRight(a[cursor2], EnsureCapacity(len1), cursor1, len1, 0, comparer);
+					count1 = GallopRight(
+						a[cursor2], EnsureCapacity(len1), cursor1, len1, 0, comparer);
 					if (count1 != 0)
 					{
 						CopyRange(m, cursor1, a, dest, count1);
@@ -812,5 +826,10 @@ namespace K4os.Data.TimSort.Sorters
 			else
 				MergeHi(base1, len1, base2, len2);
 		}
+
+		public void Dispose()
+		{
+			SmartPool.ReleaseArray(ref _mergeBuffer);
+		} 
 	}
 }

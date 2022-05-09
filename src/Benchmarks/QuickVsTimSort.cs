@@ -14,7 +14,8 @@ namespace Benchmarks
 		public abstract T New(Random r);
 		public abstract int Cmp(T a, T b);
 		
-		[Params(1_000, 10_000, 100_000)]
+		// [Params(1_000, 10_000, 100_000)]
+		[Params(10_000)]
 		public int Size { get; set; }
 		
 		[Params(DataOrder.Random, DataOrder.Ascending, DataOrder.Descending)]
@@ -63,19 +64,26 @@ namespace Benchmarks
 			a.IntroSort();
 		}
 		
-		[Benchmark]
-		public void TimSort_Virtual()
-		{
-			var a = GetData();
-			a.TimSort(Cmp);
-		}
+//		[Benchmark]
+//		public void QuadSort_Native()
+//		{
+//			var a = GetData();
+//			a.QuadSort();
+//		}
 		
-		[Benchmark]
-		public void IntroSort_Virtual()
-		{
-			var a = GetData();
-			a.IntroSort(Cmp);
-		}
+//		[Benchmark]
+//		public void TimSort_Virtual()
+//		{
+//			var a = GetData();
+//			a.TimSort(Cmp);
+//		}
+//		
+//		[Benchmark]
+//		public void IntroSort_Virtual()
+//		{
+//			var a = GetData();
+//			a.IntroSort(Cmp);
+//		}
 	}
 	
 	public class QuickVsTimSortInt32: SortingBenchmark<int>

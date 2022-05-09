@@ -12,15 +12,6 @@ namespace K4os.Data.TimSort.Test.Utilities
 			return array;
 		}
 
-		public static double[] BuildSortedArray(int seed, int length)
-		{
-			var random = new Random(seed);
-			var array = new double[length];
-			var current = 0.0;
-			for (var i = 0; i < length; i++) array[i] = current += random.NextDouble();
-			return array;
-		}
-
 		public static void VerifyArray(double[] array)
 		{
 			for (var i = 1; i < array.Length; i++)

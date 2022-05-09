@@ -1,10 +1,13 @@
 using System;
+using K4os.Data.TimSort.Comparers;
+using K4os.Data.TimSort.Sorters;
 using K4os.Data.TimSort.Test.Utilities;
 using Xunit;
 
 namespace K4os.Data.TimSort.Test
 {
-	public class StressTests
+	public abstract class StressTests<TAlgorithm>
+		where TAlgorithm: ISortAlgorithm
 	{
 		[Theory]
 		[InlineData(0, 0)]
@@ -22,7 +25,7 @@ namespace K4os.Data.TimSort.Test
 		public void RandomData(int seed, int length)
 		{
 			var array = Tools.BuildArray(seed, length);
-			array.TimSort();
+			default(TAlgorithm).Sort(array, default(DefaultLessThan<double>));
 			Tools.VerifyArray(array);
 		}
 		
@@ -41,8 +44,9 @@ namespace K4os.Data.TimSort.Test
 		#endif
 		public void SortedData(int seed, int length)
 		{
-			var array = Tools.BuildSortedArray(seed, length);
-			array.TimSort();
+			var array = Tools.BuildArray(seed, length);
+			Array.Sort(array);
+			default(TAlgorithm).Sort(array, default(DefaultLessThan<double>));
 			Tools.VerifyArray(array);
 		}
 		
@@ -61,10 +65,15 @@ namespace K4os.Data.TimSort.Test
 		#endif
 		public void ReversedData(int seed, int length)
 		{
-			var array = Tools.BuildSortedArray(seed, length);
+			var array = Tools.BuildArray(seed, length);
+			Array.Sort(array);
 			Array.Reverse(array);
-			array.TimSort();
+			default(TAlgorithm).Sort(array, default(DefaultLessThan<double>));
 			Tools.VerifyArray(array);
 		}
 	}
+
+	public class TimSortStressTests: StressTests<TimSortAlgorithm> { }
+	public class IntroSortStressTests: StressTests<IntroSortAlgorithm> { }
+	// public class QuadSortStressTests: StressTests<QuadSortAlgorithm> { }
 }

@@ -5,11 +5,13 @@
 .output/
 .idea/
 .ionide/
+.nuke/temp/
 paket-files/
 packages/
 
 **/bin/
 **/obj/
+**/BenchmarkDotNet.Artifacts/
 
 .secrets.cfg
 *.snk
