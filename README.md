@@ -12,13 +12,13 @@ TimSort's average case performance is O(n log n) (same as QuickSort) but both be
 and worst case performances are better then QuickSort: O(n) and O(n log n) 
 respectively (QuickSort is O(n log n) and O(n^2)).
 
-| Algorithm     | Best       | Average    | Worst      | Memory     |  
-|--------------:|:----------:|:----------:|:----------:|:----------:|
-| TimSort       | O(n)       | O(n log n) | O(n log n) | O(n/2)     | 
-| IntroSort     | O(n log n) | O(n log n) | O(n log n) | O(n log n) | 
-| QuickSort     | O(n log n) | O(n log n) | O(n^2)     | O(n log n) |
-| HeapSort      | O(n log n) | O(n log n) | O(n log n) | O(1)       |
-| InsertionSort | O(n)       | O(n^2)     | O(n^2)     | O(1)       |
+| Algorithm     | Best       | Average    | Worst      | Memory   |  
+|--------------:|:----------:|:----------:|:----------:|:--------:|
+| TimSort       | O(n)       | O(n log n) | O(n log n) | O(n/2)   | 
+| IntroSort     | O(n log n) | O(n log n) | O(n log n) | O(log n) | 
+| QuickSort     | O(n log n) | O(n log n) | O(n^2)     | O(log n) |
+| HeapSort      | O(n log n) | O(n log n) | O(n log n) | O(1)     |
+| InsertionSort | O(n)       | O(n^2)     | O(n^2)     | O(1)     |
 
 NOTE: TimSort needs O(n/2) memory in worst case scenario, but just 
 fixed size buffer on average. Yet, this is important factor. Because of
