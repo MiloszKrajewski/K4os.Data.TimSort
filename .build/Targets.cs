@@ -118,7 +118,7 @@ class Targets: NukeBuild
 			if (!GitTasks.GitHasCleanWorkingCopy())
 				throw new Exception("Git working copy is not clean");
 			
-			if (!GitTasks.GitIsDetached())
+			if (GitTasks.GitIsDetached())
 				throw new Exception("Git working copy is detached");
 			
 			if (!GitRepository.IsOnMainOrMasterBranch())
