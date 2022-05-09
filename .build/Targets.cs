@@ -130,13 +130,13 @@ class Targets: NukeBuild
 
 			GitTasks.Git("push");
 			
-			Console.WriteLine("!!!");
 			var version = store["version"];
-			Console.WriteLine($"!!! {version}");
 			foreach (var package in GlobFiles(OutputDirectory, $"*.{version}.nupkg"))
 			{
-				Console.WriteLine($"!!! {package}");
-				DotNetNuGetPush(s => s.SetTargetPath(package).SetSource("https://www.nuget.org/api/v2/package"));
+				DotNetNuGetPush(s => s
+					.SetSource("https://www.nuget.org/api/v2/package")
+					.SetApiKey(Secrets["nuget"]["accessKey"])
+					.SetTargetPath(package));
 			}
 		});
 }
