@@ -103,6 +103,9 @@ class Targets: NukeBuild
 				.SetProject(Solution)
 				.SetConfiguration(Configuration.Release)
 				.SetOutputDirectory(OutputDirectory)
+				.SetVersion(ReleaseNotes.NugetVersion)
+				.SetAssemblyVersion(ReleaseNotes.FileVersion)
+				.SetFileVersion(ReleaseNotes.FileVersion)
 				.EnableNoRestore());
 
 			store["commit"] = GitRepository.Commit;
