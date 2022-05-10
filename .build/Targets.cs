@@ -131,7 +131,7 @@ class Targets: NukeBuild
 				throw new Exception("Release was done with another commit");
 
 			var version = store["version"];
-			GitTasks.Git($"push origin tag {version}");
+			GitTasks.Git($"push origin");
 
 			foreach (var package in GlobFiles(OutputDirectory, $"*.{version}.nupkg"))
 			{
