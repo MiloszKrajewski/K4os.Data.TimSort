@@ -130,9 +130,9 @@ class Targets: NukeBuild
 			if (GitTasks.GitCurrentCommit() != commit)
 				throw new Exception("Release was done with another commit");
 
-			GitTasks.Git("push ");
-			
 			var version = store["version"];
+			GitTasks.Git($"push origin tag {version}");
+
 			foreach (var package in GlobFiles(OutputDirectory, $"*.{version}.nupkg"))
 			{
 				DotNetNuGetPush(s => s
