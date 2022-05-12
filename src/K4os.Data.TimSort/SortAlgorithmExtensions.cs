@@ -60,6 +60,16 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void TimSort<T, TLessThan>(
+        this Span<T> span, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(span, LessThan.Create(lessThan));
+
+    /// <summary>Sorts span using TimSort.</summary>
+	/// <param name="span">Span to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
         this Span<T> span, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(TimSortAlgorithm)
@@ -103,6 +113,16 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(TimSortAlgorithm)
             .Sort(array.AsSpan(), LessThan.Create(comparer));
+
+    /// <summary>Sorts array using TimSort.</summary>
+	/// <param name="array">Array to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
+        this T[] array, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(array.AsSpan(), LessThan.Create(lessThan));
 
     /// <summary>Sorts array using TimSort.</summary>
 	/// <param name="array">Array to be sorted.</param>
@@ -158,6 +178,16 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void TimSort<T, TLessThan>(
+        this List<T> list, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(list.AsSpan(), LessThan.Create(lessThan));
+
+    /// <summary>Sorts list using TimSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
         this List<T> list, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(TimSortAlgorithm)
@@ -201,6 +231,16 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(TimSortAlgorithm)
             .Sort(list, LessThan.Create(comparer));
+
+    /// <summary>Sorts list using TimSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
+        this IList<T> list, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(list, LessThan.Create(lessThan));
 
     /// <summary>Sorts list using TimSort.</summary>
 	/// <param name="list">List to be sorted.</param>
@@ -258,6 +298,18 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(TimSortAlgorithm)
             .Sort(span.Slice(offset, length), LessThan.Create(comparer));
+
+    /// <summary>Sorts span using TimSort.</summary>
+	/// <param name="span">Span to be sorted.</param>
+    /// <param name="offset">Starting offset within span.</param>
+    /// <param name="length">Length of sorted slice of span.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
+        this Span<T> span, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(span.Slice(offset, length), LessThan.Create(lessThan));
 
     /// <summary>Sorts span using TimSort.</summary>
 	/// <param name="span">Span to be sorted.</param>
@@ -325,6 +377,18 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void TimSort<T, TLessThan>(
+        this T[] array, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(array.AsSpan(offset, length), LessThan.Create(lessThan));
+
+    /// <summary>Sorts array using TimSort.</summary>
+	/// <param name="array">Array to be sorted.</param>
+    /// <param name="offset">Starting offset within array.</param>
+    /// <param name="length">Length of sorted slice of array.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
         this T[] array, int offset, int length, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(TimSortAlgorithm)
@@ -384,6 +448,18 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void TimSort<T, TLessThan>(
+        this List<T> list, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(list.AsSpan(offset, length), LessThan.Create(lessThan));
+
+    /// <summary>Sorts list using TimSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="offset">Starting offset within list.</param>
+    /// <param name="length">Length of sorted slice of list.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
         this List<T> list, int offset, int length, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(TimSortAlgorithm)
@@ -435,6 +511,18 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(TimSortAlgorithm)
             .Sort(list, offset, offset + length, LessThan.Create(comparer));
+
+    /// <summary>Sorts list using TimSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="offset">Starting offset within list.</param>
+    /// <param name="length">Length of sorted slice of list.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void TimSort<T, TLessThan>(
+        this IList<T> list, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(TimSortAlgorithm)
+            .Sort(list, offset, offset + length, LessThan.Create(lessThan));
 
     /// <summary>Sorts list using TimSort.</summary>
 	/// <param name="list">List to be sorted.</param>
@@ -492,6 +580,16 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void IntroSort<T, TLessThan>(
+        this Span<T> span, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(span, LessThan.Create(lessThan));
+
+    /// <summary>Sorts span using IntroSort.</summary>
+	/// <param name="span">Span to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
         this Span<T> span, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(IntroSortAlgorithm)
@@ -535,6 +633,16 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(IntroSortAlgorithm)
             .Sort(array.AsSpan(), LessThan.Create(comparer));
+
+    /// <summary>Sorts array using IntroSort.</summary>
+	/// <param name="array">Array to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
+        this T[] array, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(array.AsSpan(), LessThan.Create(lessThan));
 
     /// <summary>Sorts array using IntroSort.</summary>
 	/// <param name="array">Array to be sorted.</param>
@@ -590,6 +698,16 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void IntroSort<T, TLessThan>(
+        this List<T> list, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(list.AsSpan(), LessThan.Create(lessThan));
+
+    /// <summary>Sorts list using IntroSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
         this List<T> list, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(IntroSortAlgorithm)
@@ -633,6 +751,16 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(IntroSortAlgorithm)
             .Sort(list, LessThan.Create(comparer));
+
+    /// <summary>Sorts list using IntroSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
+        this IList<T> list, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(list, LessThan.Create(lessThan));
 
     /// <summary>Sorts list using IntroSort.</summary>
 	/// <param name="list">List to be sorted.</param>
@@ -690,6 +818,18 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(IntroSortAlgorithm)
             .Sort(span.Slice(offset, length), LessThan.Create(comparer));
+
+    /// <summary>Sorts span using IntroSort.</summary>
+	/// <param name="span">Span to be sorted.</param>
+    /// <param name="offset">Starting offset within span.</param>
+    /// <param name="length">Length of sorted slice of span.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
+        this Span<T> span, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(span.Slice(offset, length), LessThan.Create(lessThan));
 
     /// <summary>Sorts span using IntroSort.</summary>
 	/// <param name="span">Span to be sorted.</param>
@@ -757,6 +897,18 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void IntroSort<T, TLessThan>(
+        this T[] array, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(array.AsSpan(offset, length), LessThan.Create(lessThan));
+
+    /// <summary>Sorts array using IntroSort.</summary>
+	/// <param name="array">Array to be sorted.</param>
+    /// <param name="offset">Starting offset within array.</param>
+    /// <param name="length">Length of sorted slice of array.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
         this T[] array, int offset, int length, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(IntroSortAlgorithm)
@@ -816,6 +968,18 @@ public static partial class SortAlgorithmExtensions
     /// <param name="lessThan">LessThan comparer.</param>
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
 	public static void IntroSort<T, TLessThan>(
+        this List<T> list, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(list.AsSpan(offset, length), LessThan.Create(lessThan));
+
+    /// <summary>Sorts list using IntroSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="offset">Starting offset within list.</param>
+    /// <param name="length">Length of sorted slice of list.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
         this List<T> list, int offset, int length, TLessThan lessThan)
         where TLessThan: ILessThan<T>
         => default(IntroSortAlgorithm)
@@ -867,6 +1031,18 @@ public static partial class SortAlgorithmExtensions
         // no "where" constraints
         => default(IntroSortAlgorithm)
             .Sort(list, offset, offset + length, LessThan.Create(comparer));
+
+    /// <summary>Sorts list using IntroSort.</summary>
+	/// <param name="list">List to be sorted.</param>
+    /// <param name="offset">Starting offset within list.</param>
+    /// <param name="length">Length of sorted slice of list.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void IntroSort<T, TLessThan>(
+        this IList<T> list, int offset, int length, Func<T, T, bool> lessThan)
+        where TLessThan: ILessThan<T>
+        => default(IntroSortAlgorithm)
+            .Sort(list, offset, offset + length, LessThan.Create(lessThan));
 
     /// <summary>Sorts list using IntroSort.</summary>
 	/// <param name="list">List to be sorted.</param>

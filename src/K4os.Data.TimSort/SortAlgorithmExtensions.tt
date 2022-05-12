@@ -40,6 +40,7 @@ public static partial class SortAlgorithmExtensions
 		new { Def = ", Comparer<T> comparer", Use = ", LessThan.Create(comparer)" },
 		new { Def = ", Comparison<T> comparer", Use = ", LessThan.Create(comparer)" },
 		new { Def = ", IComparer<T> comparer", Use = ", LessThan.Create(comparer)" },
+		new { Def = ", Func<T, T, bool> lessThan", Use = ", LessThan.Create(lessThan)" },
 		new { Def = ", TLessThan lessThan", Use = ", lessThan" },
 	})
 	{

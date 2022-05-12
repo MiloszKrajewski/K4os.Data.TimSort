@@ -35,6 +35,15 @@ namespace K4os.Data.TimSort.Comparers
 		/// <returns><see cref="Comparison{T}"/> wrapped with <see cref="ILessThan{T}"/></returns>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public static LessThanComparison<T> Create<T>(Comparison<T> comparer) => new(comparer);
+
+		/// <summary>
+		/// Create <see cref="ILessThan{T}"/> comparer around less-than function.
+		/// </summary>
+		/// <param name="lessThan">Comparer.</param>
+		/// <typeparam name="T">Type of item.</typeparam>
+		/// <returns><see cref="IComparer{T}"/> wrapped with <see cref="ILessThan{T}"/></returns>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static AdhocLessThan<T> Create<T>(Func<T, T, bool> lessThan) => new(lessThan);
 	}
 
 	/// <summary><see cref="ILessThan{T}"/> wrapper around <see cref="Comparer{T}"/></summary>
@@ -83,5 +92,19 @@ namespace K4os.Data.TimSort.Comparers
 		/// <inheritdoc />
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		public bool Lt(T a, T b) => _comparer(a, b) < 0;
+	}
+
+	public readonly struct AdhocLessThan<T>: ILessThan<T>
+	{
+		private readonly Func<T, T, bool> _lessThan;
+
+		/// <summary>Create new instance of <see cref="AdhocLessThan{T}"/></summary>
+		/// <param name="lessThan">Actual comparer.</param>
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public AdhocLessThan(Func<T, T, bool> lessThan) => _lessThan = lessThan;
+
+		/// <inheritdoc />
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public bool Lt(T a, T b) => _lessThan(a, b);
 	}
 }
