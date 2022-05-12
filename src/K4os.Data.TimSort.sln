@@ -21,6 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{835ECD
 		..\Signing.targets = ..\Signing.targets
 		..\paket.lock = ..\paket.lock
 		..\Directory.Build.props = ..\Directory.Build.props
+		..\global.json = ..\global.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReferenceImplementation", "ReferenceImplementation\ReferenceImplementation.csproj", "{06B795E2-AB34-4B98-ABB7-5C7B549ECED9}"

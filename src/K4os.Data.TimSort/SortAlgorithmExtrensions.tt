@@ -13,11 +13,11 @@ using K4os.Data.TimSort.Comparers;
 using K4os.Data.TimSort.Internals;
 using K4os.Data.TimSort.Sorters;
 
-namespace K4os.Data.TimSort
+namespace K4os.Data.TimSort;
+
+/// <summary>Extensions giving easy access to sorting method.</summary>
+public static partial class SortAlgorithmExtensions
 {
-	/// <summary>Extensions giving easy access to sorting method.</summary>
-	public static partial class SortAlgorithmExtensions
-	{
 
 <#
 	foreach (var algo in new[] {
@@ -55,31 +55,30 @@ namespace K4os.Data.TimSort
 		var lessThanGenericArg = hasLessThan ? ", TLessThan" : "";
 		var lessThanConstraint = hasLessThan ? "where TLessThan: ILessThan<T>" : "// no \"where\" constraints";
 #>
-        /// <summary>Sorts <#= type #> using <#= algo #>Sort.</summary>
-		/// <param name="<#= type #>"><#= Capitalize(type) #> to be sorted.</param>
+    /// <summary>Sorts <#= type #> using <#= algo #>Sort.</summary>
+	/// <param name="<#= type #>"><#= Capitalize(type) #> to be sorted.</param>
 <#          if (hasOffset) { #>
-        /// <param name="offset">Starting offset within <#= type #>.</param>
-        /// <param name="length">Length of sorted slice of <#= type #>.</param>
+    /// <param name="offset">Starting offset within <#= type #>.</param>
+    /// <param name="length">Length of sorted slice of <#= type #>.</param>
 <# } #>
 <#          if (hasComparer) { #>
-        /// <param name="comparer">Comparer.</param>
+    /// <param name="comparer">Comparer.</param>
 <# } #>
 <#          if (hasLessThan) { #>
-        /// <param name="lessThan">LessThan comparer.</param>
+    /// <param name="lessThan">LessThan comparer.</param>
 <# } #>
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		public static void <#= algo #>Sort<T<#= lessThanGenericArg #>>(
-            this <#= array.Def #><#= comparer.Def #>)
-            <#= lessThanConstraint #>
-            => default(<#= algo #>SortAlgorithm)
-                .Sort(<#= array.Use #><#= comparer.Use #>);
+	[MethodImpl(MethodImplOptions.AggressiveInlining)]
+	public static void <#= algo #>Sort<T<#= lessThanGenericArg #>>(
+        this <#= array.Def #><#= comparer.Def #>)
+        <#= lessThanConstraint #>
+        => default(<#= algo #>SortAlgorithm)
+            .Sort(<#= array.Use #><#= comparer.Use #>);
 
 <#
-			}
-#>
 	}
+#>
 }
 <#+
-	public static string Capitalize(string text) => 
+	private static string Capitalize(string text) => 
 		text.Substring(0, 1).ToUpperInvariant() + text.Substring(1);
 #>

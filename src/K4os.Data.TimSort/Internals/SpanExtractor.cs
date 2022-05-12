@@ -30,8 +30,7 @@ namespace K4os.Data.TimSort.Internals
 		public static Span<T> GetSpan<T>(List<T> list)
 		{
 			var array = ArrayExtractor<T>.GetArray(list);
-			var length = list.Count;
-			return array.AsSpan(0, length);
+			return array.AsSpan(0, list.Count);
 		}
 
 		#endif
